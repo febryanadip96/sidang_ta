@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'username', 'password','npk','role'
     ];
 
     /**
@@ -27,8 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-	public function dosen()
-	{
-		return $this->hasOne('App\Dosen','user_id');
-	}
+		public function dosen()
+		{
+			return $this->hasOne('App\Dosen','user_id');
+		}
 }

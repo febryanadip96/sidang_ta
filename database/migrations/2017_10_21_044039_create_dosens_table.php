@@ -15,8 +15,6 @@ class CreateDosensTable extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->increments('id');
-			$table->string('npk',15);
-			$table->string('nama',50);
 			$table->boolean('kelayakan');
 			$table->integer('user_id')->unsigned();
     		$table->foreign('user_id')->references('id')->on('users');

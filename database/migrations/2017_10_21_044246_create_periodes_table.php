@@ -19,6 +19,7 @@ class CreatePeriodesTable extends Migration
 			$table->date('tanggal_awal');
 			$table->date('tanggal_akhir');
 			$table->date('batas_pendaftaran');
+            $table->boolean('status');
         });
     }
 

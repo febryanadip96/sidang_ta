@@ -8,7 +8,7 @@ class Dosen extends Model
 {
 	protected $table = 'dosens';
     protected $primaryKey = 'id';
-	protected $fillable=['npk','nama','kelayakan','user_id'];
+	protected $fillable=['kelayakan','user_id'];
     public $timestamps=false;
 	protected $guarded=['id'];
 
