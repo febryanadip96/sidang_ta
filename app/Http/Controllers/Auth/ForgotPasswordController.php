@@ -29,4 +29,9 @@ class ForgotPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+	protected function showLinkRequestForm()
+	{
+		abort(404);
+	}
 }
