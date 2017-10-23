@@ -15,6 +15,9 @@ class KalabMiddleware
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+		if ($request->user()->role == 2) {
+            return $next($request);
+        }
+        return redirect('home');
     }
 }

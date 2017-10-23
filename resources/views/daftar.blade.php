@@ -38,7 +38,7 @@
 				<div class="form-group">
 					<label for="no_telp" class="col-md-4 control-label">No. Telp</label>
 					<div class="col-md-6">
-							<input id="no_telp" type="text" class="form-control" name="no_telp" required>
+						<input id="no_telp" type="text" class="form-control" name="no_telp" required>
 					</div>
 	            </div>
 
@@ -52,14 +52,30 @@
 				<div class="form-group">
 					<label for="pembimbing_1_id" class="col-md-4 control-label">Pembimbing 1</label>
 					<div class="col-md-6">
-						<input id="pembimbing_1_id" type="text" class="form-control" name="pembimbing_1_id" required>
+						<select id="pembimbing_1_id" name="pembimbing_1_id" class="form-control select2">
+							<option selected="selected">Alabama</option>
+							<option>Alaska</option>
+							<option>California</option>
+							<option>Delaware</option>
+							<option>Tennessee</option>
+							<option>Texas</option>
+							<option>Washington</option>
+		                </select>
 					</div>
 	            </div>
 
 				<div class="form-group">
 					<label for="pembimbing_2_id" class="col-md-4 control-label">Pembimbing 2</label>
 					<div class="col-md-6">
-						<input id="pembimbing_2_id" type="text" class="form-control" name="pembimbing_2_id" required>
+						<select id="pembimbing_2_id" name="pembimbing_2_id" class="form-control select2">
+							<option selected="selected">Alabama</option>
+							<option>Alaska</option>
+							<option>California</option>
+							<option>Delaware</option>
+							<option>Tennessee</option>
+							<option>Texas</option>
+							<option>Washington</option>
+		                </select>
 					</div>
 	            </div>
 

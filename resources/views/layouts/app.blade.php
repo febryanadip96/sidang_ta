@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{asset('plugins/iCheck/square/blue.css') }}">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css') }}">
+	<!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('bower_components/select2/dist/css/select2.min.css') }}">
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
 	   folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="{{asset('dist/css/skins/skin-red.min.css') }}">
@@ -85,11 +87,14 @@
 	<script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
 	<!-- AdminLTE App -->
 	<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-
+	<!-- Select2 -->
+	<script src="{{ asset('bower_components/select2/dist/js/select2.full.min.js') }}"></script>
 	<!-- iCheck -->
 	<script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
 	<script>
 		$(function () {
+			//Initialize Select2 Elements
+		    $('.select2').select2();
 			$('input').iCheck({
 				checkboxClass: 'icheckbox_square-blue',
 				radioClass: 'iradio_square-blue',
