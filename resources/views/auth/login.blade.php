@@ -3,6 +3,7 @@
 @section('content')
 <div class="login-box">
 	<div class="login-logo">
+		<img class="center-block" src="{{asset('image/ubaya.png')}}" height="150">
 	</div>
 	<!-- /.login-logo -->
 	<div class="login-box-body">

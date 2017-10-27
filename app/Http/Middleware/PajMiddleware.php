@@ -15,9 +15,9 @@ class PajMiddleware
      */
     public function handle($request, Closure $next)
     {
-		if ($request->user()->role != 1) {
+		if ($request->user()->role != 1 || $request->user()->role != 2) {
             return $next($request);
         }
-        return redirect('home');
+        return back();
     }
 }

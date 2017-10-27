@@ -41,11 +41,11 @@
 		        <!-- Collect the nav links, forms, and other content for toggling -->
 		        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
 		          	<ul class="nav navbar-nav">
-			            <li><a href="{{ url('jadwalsidang') }}">Jadwal Sidang TA</a></li>
-			            <li><a href="{{ url('mahasiswa') }}">Master Mahasiswa</a></li>
-			            <li><a href="{{ url('dosen') }}">Master Dosen</a></li>
-			            <li><a href="{{ url('periode') }}">Master Periode</a></li>
-			            <li><a href="{{ url('tempat') }}">Master Tempat</a></li>
+			            <li><a href="{{ url('paj/jadwalsidang') }}">Jadwal Sidang TA</a></li>
+			            <li><a href="{{ url('paj/mastermahasiswa') }}">Master Mahasiswa</a></li>
+			            <li><a href="{{ url('paj/masterdosen') }}">Master Dosen</a></li>
+			            <li><a href="{{ url('paj/masterperiode') }}">Master Periode</a></li>
+			            <li><a href="{{ url('paj/mastertempat') }}">Master Tempat</a></li>
 		          	</ul>
 		        </div>
 		        <!-- /.navbar-collapse -->
@@ -108,5 +108,21 @@
 	<script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
 	<!-- AdminLTE App -->
 	<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+	<script>
+		$(function () {
+			//Initialize Select2 Elements
+		    $('.select2').select2();
+			$('input').iCheck({
+				checkboxClass: 'icheckbox_square-blue',
+				radioClass: 'iradio_square-blue',
+				increaseArea: '20%' // optional
+			});
+			$('.alert').slideDown(500, function(){
+			  	setTimeout(function(){
+			      	$(".alert").slideUp(500);
+			  	},5000);
+			});
+		});
+	</script>
 </body>
 </html>

@@ -11,17 +11,17 @@
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
 	<!-- Styles -->
-	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="{{asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
 	<!-- Ionicons -->
 	<link rel="stylesheet" href="{{asset('bower_components/Ionicons/css/ionicons.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{asset('plugins/iCheck/square/blue.css') }}">
-	<!-- Theme style -->
-	<link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css') }}">
 	<!-- Select2 -->
     <link rel="stylesheet" href="{{asset('bower_components/select2/dist/css/select2.min.css') }}">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css') }}">
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
 	   folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="{{asset('dist/css/skins/skin-red.min.css') }}">
@@ -99,6 +99,11 @@
 				checkboxClass: 'icheckbox_square-blue',
 				radioClass: 'iradio_square-blue',
 				increaseArea: '20%' // optional
+			});
+			$('.alert').slideDown(500, function(){
+			  	setTimeout(function(){
+			      	$(".alert").slideUp(500);
+			  	},5000);
 			});
 		});
 	</script>

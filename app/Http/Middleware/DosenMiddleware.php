@@ -15,9 +15,9 @@ class DosenMiddleware
      */
     public function handle($request, Closure $next)
     {
-		if ($request->user()->role == 2 || $request->user()->role == 3) {
+		if ($request->user()->role == 3 || $request->user()->role == 4) {
 	        return $next($request);
         }
-        return redirect('home');
+        return back();
     }
 }

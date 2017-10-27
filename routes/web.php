@@ -13,10 +13,13 @@
 
 Route::get('/', function () {
     return view('daftar');
-});
+})->middleware('guest');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('redirect', 'RedirectController@index');
 
-Route::post('daftar', 'DaftarController');
+Route::post('daftar', 'DaftarController@daftar');
+
+//paj
+Route::get('paj/jadwalsidang','Paj\JadwalSidangController@index');

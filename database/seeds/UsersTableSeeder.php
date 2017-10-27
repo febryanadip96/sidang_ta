@@ -12,11 +12,20 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'Duladi',
-            'username' => 'duladi',
-            'password' => bcrypt('secret'),
-            'npk' => '202018',
-            'role' => 1,
+            [
+                'name' => 'superadmin',
+                'username' => 'superadmin',
+                'password' => bcrypt('secret'),
+                'npk' => '000000',
+                'role' => 1,
+            ],
+            [
+                'name' => 'Duladi',
+                'username' => 'duladi',
+                'password' => bcrypt('secret'),
+                'npk' => '202018',
+                'role' => 2,
+            ]
         ]);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class KalabMiddleware
+class SuperAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class KalabMiddleware
      */
     public function handle($request, Closure $next)
     {
-		if ($request->user()->role == 3) {
+        if ($request->user()->role != 1) {
             return $next($request);
         }
         return back();
