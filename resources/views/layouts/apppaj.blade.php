@@ -10,12 +10,15 @@
 
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
-	<!-- Styles -->
-	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+	<!-- Bootstrap 3.3.7 -->
+	<link rel="stylesheet" href="{{asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="{{asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 	<!-- Ionicons -->
-	<link rel="stylesheet" href="{{asset('bower_components/Ionicons/css/ionicons.min.css') }}">
+	<link rel="stylesheet" href="{{asset('bower_components/Ionicons/css/ionicons.min.css') }}"><!-- iCheck -->
+    <link rel="stylesheet" href="{{asset('plugins/iCheck/square/blue.css') }}">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css') }}">
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -23,6 +26,30 @@
 	<link rel="stylesheet" href="{{asset('dist/css/skins/skin-red.min.css') }}">
 	<!-- Google Font -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	
+
+	<!-- jQuery 3 -->
+	<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <!-- DataTables -->
+    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+	<!-- SlimScroll -->
+	<script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+	<!-- FastClick -->
+	<script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
+	<!-- iCheck -->
+	<script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
+	<!-- AdminLTE App -->
+	<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+	<script>
+		$.ajaxSetup({
+		    headers: {
+		        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		    }
+		});
+	</script>
 
 </head>
 <body class="hold-transition skin-red layout-top-nav">
@@ -52,28 +79,29 @@
 		        <!-- Navbar Right Menu -->
 		        <div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
-						<!-- Authentication Links -->
-						@guest
-							<li><a href="{{ route('login') }}">Login</a></li>
-						@else
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-									{{ Auth::user()->name }} <span class="caret"></span>
-								</a>
+						<!-- User Account Menu -->
+						<li class="dropdown user user-menu">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+								{{ Auth::user()->name }} <span class="caret"></span>
+							</a>
 
-								<ul class="dropdown-menu" role="menu">
-									<li>
-										<a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-											Logout
-										</a>
+							<ul class="dropdown-menu" role="menu">
+								<li class="user-footer">
+				                  <div class="pull-left">
+				                    <a href="#" class="btn btn-default btn-flat"><i class="fa fa-user"></i> Profile</a>
+				                  </div>
+				                  <div class="pull-right">
+				                  	<a class="btn btn-default btn-flat" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+										Logout <i class="fa fa-sign-out"></i>
+									</a>
 
-										<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-											{{ csrf_field() }}
-										</form>
-									</li>
-								</ul>
-							</li>
-						@endguest
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+										{{ csrf_field() }}
+									</form>
+				                  </div>
+				                </li>
+							</ul>
+						</li>
 					</ul>
 		        </div>
 		        <!-- /.navbar-custom-menu -->
@@ -100,28 +128,19 @@
 		<!-- ./wrapper -->
 	</div>
 
-	<!-- Scripts -->
-	<script src="{{ asset('js/app.js') }}"></script>
-	<!-- SlimScroll -->
-	<script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
-	<!-- FastClick -->
-	<script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
-	<!-- AdminLTE App -->
-	<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+	
 	<script>
 		$(function () {
-			//Initialize Select2 Elements
-		    $('.select2').select2();
-			$('input').iCheck({
-				checkboxClass: 'icheckbox_square-blue',
-				radioClass: 'iradio_square-blue',
-				increaseArea: '20%' // optional
-			});
-			$('.alert').slideDown(500, function(){
-			  	setTimeout(function(){
-			      	$(".alert").slideUp(500);
-			  	},5000);
-			});
+			$('.table-hover').DataTable({
+				"aoColumnDefs": [
+				  	{ 'bSortable': false, 'aTargets': ['no-sort'] }
+				],
+				stateSave: true,
+		    });
+		    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+				checkboxClass: 'icheckbox_minimal-blue',
+				radioClass   : 'iradio_minimal-blue'
+		    });
 		});
 	</script>
 </body>

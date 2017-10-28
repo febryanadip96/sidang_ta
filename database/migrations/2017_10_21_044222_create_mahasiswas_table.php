@@ -19,12 +19,21 @@ class CreateMahasiswasTable extends Migration
 			$table->string('nama',50);
 			$table->string('judul');
 			$table->string('no_telp',25);
-			$table->boolean('persyaratan_1');
-			$table->boolean('persyaratan_2');
-			$table->boolean('persyaratan_3');
-			$table->boolean('persyaratan_4');
-			$table->boolean('persyaratan_5');
-			$table->boolean('persyaratan_6');
+			$table->boolean('persyaratan_1')->nullable();
+			$table->boolean('persyaratan_2')->nullable();
+			$table->boolean('persyaratan_3')->nullable();
+			$table->boolean('persyaratan_4')->nullable();
+			$table->boolean('persyaratan_5')->nullable();
+			$table->boolean('persyaratan_6')->nullable();
+            $table->integer('pembimbing_1_id')->unsigned();
+            $table->foreign('pembimbing_1_id')->references('id')->on('dosens');
+            $table->integer('pembimbing_2_id')->unsigned();
+            $table->foreign('pembimbing_2_id')->references('id')->on('dosens');
+            $table->integer('sekretaris_id')->unsigned()->nullable();
+            $table->foreign('sekretaris_id')->references('id')->on('dosens');
+            $table->integer('ketua_id')->unsigned()->nullable();
+            $table->foreign('ketua_id')->references('id')->on('dosens');
+            $table->boolean('status_lulus');
         });
     }
 

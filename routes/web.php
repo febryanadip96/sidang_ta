@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('daftar');
-})->middleware('guest');
+Route::get('/', 'DaftarController@index');
 
 Auth::routes();
 
@@ -23,3 +21,12 @@ Route::post('daftar', 'DaftarController@daftar');
 
 //paj
 Route::get('paj/jadwalsidang','Paj\JadwalSidangController@index');
+
+Route::get('paj/mastermahasiswa', 'Paj\MasterMahasiswaController@index');
+Route::post('paj/mastermahasiswa', 'Paj\MasterMahasiswaController@carimahasiswa');
+
+Route::get('paj/masterdosen', 'Paj\MasterDosenController@index');
+
+Route::get('paj/masterperiode', 'Paj\MasterPeriodeController@index');
+
+Route::get('paj/mastertempat', 'Paj\MasterTempatController@index');

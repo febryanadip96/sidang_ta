@@ -7,9 +7,9 @@
 
 <!-- Main content -->
 <section class="content">
-    @include('includes.common.status')
-    @include('includes.common.errors')
     <div class="row">
+        @include('includes.common.status')
+        @include('includes.common.errors')
         <div class="col-xs-12">
             <div class="box box-danger">
                 <div class="box-header with-border">

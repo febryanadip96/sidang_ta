@@ -10,8 +10,8 @@
 
 	<title>{{ config('app.name', 'Laravel') }}</title>
 
-	<!-- Styles -->
-	<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+	<!-- Bootstrap 3.3.7 -->
+	<link rel="stylesheet" href="{{asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="{{asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
 	<!-- Ionicons -->
@@ -27,6 +27,25 @@
 	<link rel="stylesheet" href="{{asset('dist/css/skins/skin-red.min.css') }}">
 	<!-- Google Font -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	
+	<!-- jQuery 3 -->
+	<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+	<!-- InputMask -->
+	<script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
+	<script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+	<script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+	<!-- SlimScroll -->
+	<script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+	<!-- FastClick -->
+	<script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
+	<!-- AdminLTE App -->
+	<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+	<!-- Select2 -->
+	<script src="{{ asset('bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+	<!-- iCheck -->
+	<script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
 
 </head>
 <body class="hold-transition skin-red layout-top-nav">
@@ -78,33 +97,21 @@
 		</div>
 		<!-- ./wrapper -->
 	</div>
-
-	<!-- Scripts -->
-	<script src="{{ asset('js/app.js') }}"></script>
-	<!-- SlimScroll -->
-	<script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
-	<!-- FastClick -->
-	<script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
-	<!-- AdminLTE App -->
-	<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-	<!-- Select2 -->
-	<script src="{{ asset('bower_components/select2/dist/js/select2.full.min.js') }}"></script>
-	<!-- iCheck -->
-	<script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
 	<script>
 		$(function () {
 			//Initialize Select2 Elements
 		    $('.select2').select2();
+   	 		$('[data-mask]').inputmask()
 			$('input').iCheck({
 				checkboxClass: 'icheckbox_square-blue',
 				radioClass: 'iradio_square-blue',
 				increaseArea: '20%' // optional
 			});
-			$('.alert').slideDown(500, function(){
+			/*$('.alert').slideDown(500, function(){
 			  	setTimeout(function(){
 			      	$(".alert").slideUp(500);
 			  	},5000);
-			});
+			});*/
 		});
 	</script>
 </body>

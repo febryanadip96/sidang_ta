@@ -29,21 +29,21 @@ class Dosen extends Model
 
 	public function pembimbing1()
 	{
-		return $this->hasMany('App\JadwalSidang','pembimbing_1_id');
+		return $this->hasMany('App\Mahasiswa','pembimbing_1_id');
 	}
 
 	public function pembimbing2()
 	{
-		return $this->hasMany('App\JadwalSidang','pembimbing_2_id');
+		return $this->hasMany('App\Mahasiswa','pembimbing_2_id');
 	}
 
 	public function sekretaris()
 	{
-		return $this->hasMany('App\JadwalSidang','sekretaris_id');
+		return $this->hasMany('App\Mahasiswa','sekretaris_id');
 	}
 
 	public function ketua()
 	{
-		return $this->hasMany('App\JadwalSidang','ketua_id');
+		return $this->hasMany('App\Mahasiswa','ketua_id');
 	}
 }
