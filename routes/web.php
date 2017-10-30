@@ -18,6 +18,7 @@ Auth::routes();
 Route::get('redirect', 'RedirectController@index');
 
 Route::post('daftar', 'DaftarController@daftar');
+Route::post('daftar/cekmahasiswa', 'DaftarController@cekMahasiswa');
 
 //paj
 Route::get('paj/jadwalsidang','Paj\JadwalSidangController@index');

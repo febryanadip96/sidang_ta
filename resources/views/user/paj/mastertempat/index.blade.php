@@ -14,7 +14,7 @@
             <div class="box box-danger">
                 <div class="box-header with-border">
                     <div class="text-center">
-                        Master Tempat
+                        <h4>Master Tempat</h4>
                     </div>
                 </div>
                 <div class="box-body">

@@ -68,11 +68,11 @@
 		        <!-- Collect the nav links, forms, and other content for toggling -->
 		        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
 		          	<ul class="nav navbar-nav">
-			            <li><a href="{{ url('paj/jadwalsidang') }}">Jadwal Sidang TA</a></li>
-			            <li><a href="{{ url('paj/mastermahasiswa') }}">Master Mahasiswa</a></li>
-			            <li><a href="{{ url('paj/masterdosen') }}">Master Dosen</a></li>
-			            <li><a href="{{ url('paj/masterperiode') }}">Master Periode</a></li>
-			            <li><a href="{{ url('paj/mastertempat') }}">Master Tempat</a></li>
+			            <li class="{{active(['paj/jadwalsidang','paj/jadwalsidang/*'])}}"><a href="{{ url('paj/jadwalsidang') }}">Jadwal Sidang TA</a></li>
+			            <li class="{{active(['paj/mastermahasiswa','paj/mastermahasiswa/*'])}}"><a href="{{ url('paj/mastermahasiswa') }}">Master Mahasiswa</a></li>
+			            <li class="{{active(['paj/masterdosen','paj/masterdosen/*'])}}"><a href="{{ url('paj/masterdosen') }}">Master Dosen</a></li>
+			            <li class="{{active(['paj/masterperiode','paj/masterperiode/*'])}}"><a href="{{ url('paj/masterperiode') }}">Master Periode</a></li>
+			            <li class="{{active(['paj/mastertempat','paj/mastertempat/*'])}}"><a href="{{ url('paj/mastertempat') }}">Master Tempat</a></li>
 		          	</ul>
 		        </div>
 		        <!-- /.navbar-collapse -->

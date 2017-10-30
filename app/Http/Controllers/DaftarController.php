@@ -34,14 +34,16 @@ class DaftarController extends Controller
 			'nrp' => 'required',
 			'no_telp' => 'required|min:12',
 			'judul' => 'required',
-			'pembimbing_1_id' => 'required',
-			'pembimbing_2_id' => 'required',
+			'pembimbing_1_id' => 'required|numeric',
+			'pembimbing_2_id' => 'required|numeric',
 		],[
 			'nama.requied' => 'Nama harus diisi',
 			'nrp.required' => 'NRP harus diiisi',
 			'no_telp.required' => 'Nomor Telpon harus diisi',
 			'pembimbing_1_id.required' => 'Data Pembimbing 1 tidak valid',
 			'pembimbing_2_id.required' => 'Data Pembimbing 2 tidak valid',
+			'pembimbing_1_id.numeric' => 'Data Pembimbing 1 tidak valid',
+			'pembimbing_2_id.numeric' => 'Data Pembimbing 2 tidak valid',
 		]);
 
 		$periodeAktif = Periode::where('status', 1)->first();
@@ -69,6 +71,28 @@ class DaftarController extends Controller
 
 	public function cekMahasiswa(Request $request)
 	{
-		//
+		$mahasiswa = Mahasiswa::where('nrp',$request['nrp'])->first();
+		$periodeAktif = Periode::where('status', 1)->first();
+		$terdaftar=false;
+		if($mahasiswa)//ada data siswa atau tidak
+		{
+			if($mahasiswa->periode)//sudah pernah mendaftar di periode lain
+			{
+				if($mahasiswa->periode->where('id',$periodeAktif->id)->first())//siswa terdaftar di periode aktif ini
+				{
+					$terdaftar=true;
+				}
+			}
+			return response()->json([
+				"mahasiswa" => $mahasiswa->toArray(),
+				"terdaftar" => $terdaftar,
+			]);
+		}
+		else{//belum terdaftar
+			return response()->json([
+				"terdaftar" => $terdaftar,
+			]);
+		}
+		
 	}
 }

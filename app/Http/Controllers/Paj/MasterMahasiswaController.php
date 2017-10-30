@@ -23,7 +23,8 @@ class MasterMahasiswaController extends Controller
     {
     	$periodes = Periode::all();
     	$periodeAktif = Periode::where('status',1)->first();
-    	return view('user.paj.mastermahasiswa.index',['periodes' => $periodes, 'periodeAktif'=>$periodeAktif]);
+    	$mahasiswas = $periodeAktif->daftarMahasiswa;
+        return view('user.paj.mastermahasiswa.index',['periodes' => $periodes, 'periodeAktif'=>$periodeAktif,'mahasiswas'=>$mahasiswas]);
     }
 
     public function carimahasiswa(Request $request)

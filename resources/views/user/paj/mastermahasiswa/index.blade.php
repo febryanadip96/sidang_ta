@@ -38,15 +38,15 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th rowspan="2">No</th>
-                                <th rowspan="2">NRP</th>
-                                <th rowspan="2">Nama</th>
-                                <th rowspan="2">Judul TA</th>
-                                <th rowspan="2">No Telp</th>
-                                <th rowspan="2">Pembimbing 1</th>
-                                <th rowspan="2">Pembimbing 2</th>
+                                <th rowspan="2" style="vertical-align:middle">No</th>
+                                <th rowspan="2" style="vertical-align:middle">NRP</th>
+                                <th rowspan="2" style="vertical-align:middle">Nama</th>
+                                <th rowspan="2" style="vertical-align:middle">Judul TA</th>
+                                <th rowspan="2" style="vertical-align:middle">No Telp</th>
+                                <th rowspan="2" style="vertical-align:middle">Pembimbing 1</th>
+                                <th rowspan="2" style="vertical-align:middle">Pembimbing 2</th>
                                 <th colspan="6">Persyaratan</th>
-                                <th rowspan="2" class="no-sort">Aksi</th>
+                                <th rowspan="2" class="no-sort" style="vertical-align:middle">Aksi</th>
                             </tr>
                             <tr>
                                 <th class="no-sort">1</th>

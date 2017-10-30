@@ -14,7 +14,7 @@
             <div class="box box-danger">
                 <div class="box-header with-border">
                     <div class="text-center">
-                        Jadwal Sidang TA
+                        <h4>Jadwal Sidang TA</h4>
                     </div>
                 </div>
                 <div class="box-body">
