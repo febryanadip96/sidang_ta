@@ -16,7 +16,7 @@ class CreateJadwalsTable extends Migration
         Schema::create('jadwals', function (Blueprint $table) {
             $table->increments('id');
 			$table->date('tanggal');
-			$table->unsignedInteger('waktu');
+			$table->enum('waktu',['07.00-08.30','08.30-10.00','10.00-11.30','11.30-13.00','13.00-14.30','14.30-16.00']);
 			$table->boolean('disabled');
 			$table->integer('periode_id')->unsigned();
     		$table->foreign('periode_id')->references('id')->on('periodes');

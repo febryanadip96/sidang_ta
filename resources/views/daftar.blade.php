@@ -26,7 +26,6 @@
 							<div class="col-md-6">
 								<input id="nrp" type="text" class="form-control" name="nrp" value="{{ old('nrp') }}" required autofocus>
 							</div>
-							<span id="info" style="color:red"></span>
 			            </div>
 
 			            <div class="form-group">

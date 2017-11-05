@@ -16,6 +16,7 @@ class CreateTempatsTable extends Migration
         Schema::create('tempats', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
+            $table->softDeletes();
         });
     }
 

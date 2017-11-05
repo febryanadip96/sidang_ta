@@ -17,7 +17,12 @@
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 	<!-- Ionicons -->
-	<link rel="stylesheet" href="{{asset('bower_components/Ionicons/css/ionicons.min.css') }}"><!-- iCheck -->
+	<link rel="stylesheet" href="{{asset('bower_components/Ionicons/css/ionicons.min.css') }}">
+	<!-- daterange picker -->
+	<link rel="stylesheet" href="{{asset('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
+	<!-- bootstrap datepicker -->
+	<link rel="stylesheet" href="{{asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+	<!-- iCheck -->
     <link rel="stylesheet" href="{{asset('plugins/iCheck/square/blue.css') }}">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css') }}">
@@ -32,6 +37,11 @@
 	<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
 	<!-- Bootstrap 3.3.7 -->
 	<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+	<!-- date-range-picker -->
+	<script src="{{ asset('bower_components/moment/min/moment.min.js') }}"></script>
+	<script src="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+	<!-- bootstrap datepicker -->
+	<script src="{{ asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <!-- DataTables -->
     <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>

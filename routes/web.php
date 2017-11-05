@@ -27,7 +27,15 @@ Route::get('paj/mastermahasiswa', 'Paj\MasterMahasiswaController@index');
 Route::post('paj/mastermahasiswa', 'Paj\MasterMahasiswaController@carimahasiswa');
 
 Route::get('paj/masterdosen', 'Paj\MasterDosenController@index');
+Route::get('paj/masterdosen/{id}', 'Paj\MasterDosenController@get');
+Route::post('paj/masterdosen', 'Paj\MasterDosenController@simpan');
+Route::put('paj/masterdosen/{id}', 'Paj\MasterDosenController@update');
+Route::delete('paj/masterdosen/{id}', 'Paj\MasterDosenController@hapus');
 
 Route::get('paj/masterperiode', 'Paj\MasterPeriodeController@index');
 
 Route::get('paj/mastertempat', 'Paj\MasterTempatController@index');
+Route::get('paj/mastertempat/{id}', 'Paj\MasterTempatController@get');
+Route::post('paj/mastertempat', 'Paj\MasterTempatController@simpan');
+Route::put('paj/mastertempat/{id}', 'Paj\MasterTempatController@update');
+Route::delete('paj/mastertempat/{id}', 'Paj\MasterTempatController@hapus');

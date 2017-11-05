@@ -3,14 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Dosen extends Model
 {
+	use SoftDeletes;
 	protected $table = 'dosens';
     protected $primaryKey = 'id';
 	protected $fillable=['kelayakan','user_id'];
     public $timestamps=false;
 	protected $guarded=['id'];
+	protected $dates = ['deleted_at'];
 
 	public function user()
 	{
