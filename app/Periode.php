@@ -8,7 +8,7 @@ class Periode extends Model
 {
 	protected $table = 'periodes';
     protected $primaryKey = 'id';
-	protected $fillable=['nama','tanggal_awal','tanggal_akhir','batas_pendaftaran'];
+	protected $fillable=['nama','tanggal_awal','tanggal_akhir','batas_pendaftaran','status'];
     public $timestamps=false;
 	protected $guarded=['id'];
 

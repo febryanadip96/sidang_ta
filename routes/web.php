@@ -33,6 +33,10 @@ Route::put('paj/masterdosen/{id}', 'Paj\MasterDosenController@update');
 Route::delete('paj/masterdosen/{id}', 'Paj\MasterDosenController@hapus');
 
 Route::get('paj/masterperiode', 'Paj\MasterPeriodeController@index');
+Route::post('paj/masterperiode', 'Paj\MasterPeriodeController@simpan');
+Route::get('paj/masterperiode/{id}', 'Paj\MasterPeriodeController@get');
+Route::put('paj/masterperiode/{id}', 'Paj\MasterPeriodeController@setting');
+
 
 Route::get('paj/mastertempat', 'Paj\MasterTempatController@index');
 Route::get('paj/mastertempat/{id}', 'Paj\MasterTempatController@get');

@@ -6,3 +6,11 @@
     </div>
 </div>
 @endif
+@if (session('error'))
+<div class="col-xs-12">
+	<div class="alert alert-danger">
+      <h4><span class='fa fa-warning'></span> Error</h4>
+      <p>{{ session('error') }}</p>
+    </div>
+</div>
+@endif

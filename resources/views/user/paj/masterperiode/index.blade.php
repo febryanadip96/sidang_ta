@@ -38,7 +38,7 @@
                                     <td>{{Carbon\Carbon::parse($periode->tanggal_awal)->format('l, d F Y')}} - {{Carbon\Carbon::parse($periode->tanggal_akhir)->format('l, d F Y')}}</td>
                                     <td>{{$periode->batas_pendaftaran}}</td>
                                     <td>@if($periode->status) Aktif @else Tidak Aktif @endif</td>
-                                    <td><a class="btn btn-warning btn-xs" href="">Edit</a> <a class="btn btn-danger btn-xs" href="">Hapus</a></td>
+                                    <td><a class="btn btn-warning btn-xs btn-setting" data-url="{{url('paj/masterperiode/'.$periode->id)}}">Setting</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -101,6 +101,32 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+
+    <div class="modal fade" id="modal-setting">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Setting Periode</h4>
+                </div>
+                <form id="formSetting" class="form-horizontal" method="POST" action="">
+                    <div class="modal-body">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        <div id="isiModalSetting"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Simpan</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
     
 </section>
 <!-- /.content -->
@@ -116,9 +142,17 @@
         $('#batas_pendaftaran').datepicker({
             format: 'dd/mm/yyyy',
             autoclose: true,
-            startDate: '+1d'
         });
         $('#batas_pendaftaran').datepicker("setDate", new Date());
+        $('.btn-setting').on('click', function(){
+            var url = $(this).attr('data-url');
+            $.get(url, function(data){
+                $('#formSetting').attr('action', url);
+                //$('#isiModalSetting').html(JSON.stringify(data));
+                $('#isiModalSetting').html(data);
+                $('#modal-setting').modal('show',{backdrop: 'true'});
+            });
+        });
     });
 </script>
 @endsection

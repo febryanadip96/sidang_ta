@@ -138,11 +138,6 @@
 
 <script>
     $(function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
         $('.btn-edit').on('click', function(){
             var url = $(this).attr('data-url');
             $.get(url, function(data){
