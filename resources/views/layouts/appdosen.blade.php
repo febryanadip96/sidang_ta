@@ -45,10 +45,6 @@
     <!-- DataTables -->
     <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-    <!-- InputMask -->
-	<script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
-	<script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
-	<script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
 	<!-- SlimScroll -->
 	<script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 	<!-- FastClick -->
@@ -82,11 +78,11 @@
 		        <!-- Collect the nav links, forms, and other content for toggling -->
 		        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
 		          	<ul class="nav navbar-nav">
-			            <li class="{{active(['paj/jadwalsidang','paj/jadwalsidang/*'])}}"><a href="{{ url('paj/jadwalsidang') }}">Jadwal Sidang TA</a></li>
-			            <li class="{{active(['paj/mastermahasiswa','paj/mastermahasiswa/*'])}}"><a href="{{ url('paj/mastermahasiswa') }}">Master Mahasiswa</a></li>
-			            <li class="{{active(['paj/masterdosen','paj/masterdosen/*'])}}"><a href="{{ url('paj/masterdosen') }}">Master Dosen</a></li>
-			            <li class="{{active(['paj/masterperiode','paj/masterperiode/*'])}}"><a href="{{ url('paj/masterperiode') }}">Master Periode</a></li>
-			            <li class="{{active(['paj/mastertempat','paj/mastertempat/*'])}}"><a href="{{ url('paj/mastertempat') }}">Master Tempat</a></li>
+			            <li class="{{active(['dosen/jadwalkosong','dosen/jadwalkosong/*'])}}"><a href="{{ url('dosen/jadwalkosong') }}">Jadwal Kosong</a></li>
+			            <li class="{{active(['dosen/jadwalsidang','dosen/jadwalsidang/*'])}}"><a href="{{ url('dosen/jadwalsidang') }}">Jadwal Sidang TA</a></li>
+			            @if(Auth::user()->role==3)
+			            	<li class="{{active(['kalab/pengujisidang','kalab/pengujisidang/*'])}}"><a href="{{ url('kalab/pengujisidang') }}">Penguji Sidang TA</a></li>
+			            @endif
 		          	</ul>
 		        </div>
 		        <!-- /.navbar-collapse -->

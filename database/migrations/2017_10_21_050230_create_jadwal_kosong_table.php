@@ -18,7 +18,7 @@ class CreateJadwalKosongTable extends Migration
     		$table->foreign('dosen_id')->references('id')->on('dosens');
 			$table->integer('jadwal_id')->unsigned();
     		$table->foreign('jadwal_id')->references('id')->on('jadwals');
-			$table->boolean('diambil');
+            $table->boolean('diambil')->default(false);
         });
     }
 

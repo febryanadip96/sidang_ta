@@ -15,16 +15,22 @@
 				<div class="box-header with-border">
 					<div class="text-center">
 						<h3 class="box-title">Pendaftaran Sidang Tugas Akhir Periode {{$periodeAktif->nama}}</h3><br>
-						<b>Batas Pendaftaran : {{Carbon\Carbon::parse($periodeAktif->batas_pendaftaran)->format('l, d F Y')}}</b>
+						<b>Batas Pendaftaran : {{Carbon\Carbon::parse($periodeAktif->batas_pendaftaran)->formatLocalized('%A, %d %B %Y')}}</b>
 					</div>
 				</div>
+				@if($tutup)
+					<div class="text-center">
+				      	<h4><span class='fa fa-info'></span> Pendaftaran Sidang TA sudah ditutup</h4>
+				    </div>
+				@endif
 				<form class="form-horizontal" method="POST" action="{{ url('daftar') }}">
 					<div class="box-body">
 			          	{{ csrf_field() }}
+			          	<input type="hidden" id="id" name="id" value="0">
 			          	<div class="form-group">
 							<label for="nrp" class="col-md-4 control-label">NRP</label>
 							<div class="col-md-6">
-								<input id="nrp" type="text" class="form-control" name="nrp" value="{{ old('nrp') }}" required autofocus>
+								<input id="nrp" type="text" class="form-control" name="nrp" value="{{ old('nrp') }}" required autofocus @if($tutup) disabled @endif>
 							</div>
 			            </div>
 
@@ -107,7 +113,7 @@
 			var value = $(this).val();
 		    $('#pembimbing_2_id').children('option').each(function() {
 		        if ( $(this).val() === value ) {
-		            $(this).attr('disabled', true).siblings().removeAttr('disabled');   
+		            $(this).attr('readonly', true).siblings().removeAttr('readonly');   
 		        }
 		    });
 		});
@@ -115,7 +121,7 @@
 			var value = $(this).val();
 		    $('#pembimbing_1_id').children('option').each(function() {
 		        if ( $(this).val() === value ) {
-		            $(this).attr('disabled', true).siblings().removeAttr('disabled');   
+		            $(this).attr('readonly', true).siblings().removeAttr('readonly');   
 		        }
 		    });
 		});
@@ -130,7 +136,8 @@
 			$.post("{{url('daftar/cekmahasiswa')}}",{nrp:nrp},function(data){
 				//alert(JSON.stringify(data));
 				if(data.terdaftar){
-					$('#nama').val(data.mahasiswa.nama).attr('disabled',true);
+					$('#id').val(data.mahasiswa.id);
+					$('#nama').val(data.mahasiswa.nama).attr('disabled',true).attr('readonly',false);
 					$('#no_telp').val(data.mahasiswa.no_telp).attr('disabled',true);
 					$('#judul').val(data.mahasiswa.judul).attr('disabled',true);
 					$('#pembimbing_1_id').val(data.mahasiswa.pembimbing_1_id).attr('disabled',true);
@@ -140,7 +147,8 @@
 				}
 				else{
 					if(data.mahasiswa!=null){
-						$('#nama').val(data.mahasiswa.nama).attr('disabled',true);
+						$('#id').val(data.mahasiswa.id);
+						$('#nama').val(data.mahasiswa.nama).attr('disabled',false).attr('readonly',true);
 						$('#no_telp').val(data.mahasiswa.no_telp).attr('disabled',false);
 						$('#judul').val(data.mahasiswa.judul).attr('disabled',false);
 						$('#pembimbing_1_id').val(data.mahasiswa.pembimbing_1_id).attr('disabled',false);
@@ -149,7 +157,8 @@
 						$('#btnSubmit').attr('disabled',false);
 					}
 					else{
-						$('#nama').val('').attr('disabled',false);
+						$('#id').val(0);
+						$('#nama').val('').attr('disabled',false).attr('readonly',false);
 						$('#no_telp').val('').attr('disabled',false);
 						$('#judul').val('').attr('disabled',false);
 						$('#pembimbing_1_id').val('').attr('disabled',false);

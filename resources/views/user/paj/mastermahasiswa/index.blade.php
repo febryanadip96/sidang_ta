@@ -19,7 +19,7 @@
                 </div>
                 <div class="box-body">
                     <div class="text-center">
-                        <form class="form-inline" method="post" action="{{url('paj/mastermahasiswa')}}">
+                        <form id="formcarisiswa" class="form-inline" method="post" action="{{url('paj/mastermahasiswa')}}">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="periode">Pilih Periode:</label>
@@ -29,9 +29,6 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <button id="carisiswa" type="submit" class="btn btn-danger">
-                                Cari
-                            </button>
                         </form>
                     </div><br>
 
@@ -57,7 +54,7 @@
                                 <th class="no-sort">6</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="data-mahasiswa">
                             @if(isset($mahasiswas))
                                 @foreach($mahasiswas as $index=>$mahasiswa)
                                     <tr>
@@ -74,7 +71,7 @@
                                         <td>@if($mahasiswa->persyaratan_4)<i class="fa fa-check-circle"></i>@else<i class="fa fa-circle-thin"></i>@endif</td>
                                         <td>@if($mahasiswa->persyaratan_5)<i class="fa fa-check-circle"></i>@else<i class="fa fa-circle-thin"></i>@endif</td>
                                         <td>@if($mahasiswa->persyaratan_6)<i class="fa fa-check-circle"></i>@else<i class="fa fa-circle-thin"></i>@endif</td>
-                                        <td><a class="btn btn-warning btn-xs" href="">Edit</a> <a class="btn btn-danger btn-xs" href="">Hapus</a></td>
+                                        <td><a class="btn btn-warning btn-xs btn-edit" data-url="{{url('paj/mastermahasiswa/'.$mahasiswa->id)}}">Edit</a>
                                     </tr>
                                 @endforeach
                             @endif
@@ -86,7 +83,77 @@
             <!-- /.box -->
         </div>
     </div>
+
+    <div class="modal fade" id="modal-edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span id="namaEdit"></span> (<span id="nrpEdit"></span>)</h4>
+                </div>
+                <form id="formEdit" class="form-horizontal" method="POST" action="">
+                    <div class="modal-body">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+
+                        <a class="btn btn-danger btn-hapus-cek">Hapus Semua</a> <a class="btn btn-success btn-cek-semua">Cek Semua</a>
+
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="persyaratan_1" name="persyaratan_1" value="1">Persyaratan 1</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="persyaratan_2" name="persyaratan_2" value="1">Persyaratan 2</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="persyaratan_3" name="persyaratan_3" value="1">Persyaratan 3</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="persyaratan_4" name="persyaratan_4" value="1">Persyaratan 4</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="persyaratan_5" name="persyaratan_5" value="1">Persyaratan 5</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" id="persyaratan_6" name="persyaratan_6" value="1">Persyaratan 6</label>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Simpan</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
     
 </section>
 <!-- /.content -->
+
+<script>
+    $('#periode').on('change', function(){
+        $('#formcarisiswa').submit();
+    });
+    $('.btn-edit').on('click', function(){
+            var url = $(this).attr('data-url');
+            $.get(url, function(data){
+                //alert(JSON.stringify(data));
+                $('#formEdit').attr('action', url);
+                $('#nrpEdit').html(data.nrp);
+                $('#namaEdit').html(data.nama);
+                $('input[type=checkbox]').attr('checked', true);
+                $('#modal-edit').modal('show',{backdrop: 'true'});
+            });
+        });
+    $('.btn-cek-semua').on('click', function(){
+        $('input[type=checkbox]').attr('checked', true);
+    });
+    $('.btn-hapus-cek').on('click', function(){
+        $('input[type=checkbox]').attr('checked', false);
+    });
+</script>
 @endsection

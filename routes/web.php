@@ -22,9 +22,13 @@ Route::post('daftar/cekmahasiswa', 'DaftarController@cekMahasiswa');
 
 //paj
 Route::get('paj/jadwalsidang','Paj\JadwalSidangController@index');
+Route::post('paj/jadwalsidang', 'Paj\JadwalSidangController@getWaktuUji');
+Route::put('paj/jadwalsidang/{id}', 'Paj\JadwalSidangController@updateJadwal');
 
 Route::get('paj/mastermahasiswa', 'Paj\MasterMahasiswaController@index');
 Route::post('paj/mastermahasiswa', 'Paj\MasterMahasiswaController@carimahasiswa');
+Route::get('paj/mastermahasiswa/{id}', 'Paj\MasterMahasiswaController@get');
+Route::put('paj/mastermahasiswa/{id}', 'Paj\MasterMahasiswaController@editPersyaratan');
 
 Route::get('paj/masterdosen', 'Paj\MasterDosenController@index');
 Route::get('paj/masterdosen/{id}', 'Paj\MasterDosenController@get');
@@ -43,3 +47,10 @@ Route::get('paj/mastertempat/{id}', 'Paj\MasterTempatController@get');
 Route::post('paj/mastertempat', 'Paj\MasterTempatController@simpan');
 Route::put('paj/mastertempat/{id}', 'Paj\MasterTempatController@update');
 Route::delete('paj/mastertempat/{id}', 'Paj\MasterTempatController@hapus');
+
+Route::get('dosen/jadwalkosong', 'Dosen\JadwalKosongController@index');
+Route::post('dosen/jadwalkosong/{id}', 'Dosen\JadwalKosongController@simpan');
+
+Route::get('dosen/jadwalsidang', 'Dosen\JadwalSidangController@index');
+
+Route::get('kalab/pengujisidang', 'Kalab\PengujiSidangController@index');

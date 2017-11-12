@@ -7,6 +7,7 @@ use App\Periode;
 use App\Dosen;
 use App\Mahasiswa;
 use App\JadwalSidang;
+use Carbon\Carbon;
 
 class DaftarController extends Controller
 {
@@ -24,12 +25,20 @@ class DaftarController extends Controller
 	{
 		$periodeAktif = Periode::where('status', 1)->first();
 		$dosens = Dosen::all();
-		return view('daftar',['periodeAktif'=>$periodeAktif, 'dosens' => $dosens]);
+		$carbon = new Carbon();
+		if($carbon>$periodeAktif->batas_pendaftaran){
+			$tutup = true;
+		}
+		else{
+			$tutup=false;
+		}
+		return view('daftar',['periodeAktif'=>$periodeAktif, 'dosens' => $dosens, 'tutup' => $tutup]);
 	}
 
     public function daftar(Request $request)
     {
 		$this->validate($request,[
+			'id' => 'required',
 			'nama' => 'required',
 			'nrp' => 'required',
 			'no_telp' => 'required|min:12',
@@ -37,7 +46,7 @@ class DaftarController extends Controller
 			'pembimbing_1_id' => 'required|numeric',
 			'pembimbing_2_id' => 'required|numeric',
 		],[
-			'nama.requied' => 'Nama harus diisi',
+			'nama.required' => 'Nama harus diisi',
 			'nrp.required' => 'NRP harus diiisi',
 			'no_telp.required' => 'Nomor Telpon harus diisi',
 			'pembimbing_1_id.required' => 'Data Pembimbing 1 tidak valid',
@@ -48,23 +57,35 @@ class DaftarController extends Controller
 
 		$periodeAktif = Periode::where('status', 1)->first();
 
-		$mahasiswa=Mahasiswa::create([
-			'nama' => $request['nama'],
-			'nrp' => $request['nrp'],
-			'no_telp' => $request['no_telp'],
-			'judul' => $request['judul'],
-			'pembimbing_1_id' => $request['pembimbing_1_id'],
-			'pembimbing_2_id' => $request['pembimbing_2_id'],
-			'status_lulus'=>false,
-		]);
+		if($request->id==0){
+			$mahasiswa = new Mahasiswa();
+		}
+		else{
+			$mahasiswa = Mahasiswa::findOrFail($request->id);
+		}
+
+		$mahasiswa->nama = $request->nama;
+		$mahasiswa->nrp = $request->nrp;
+		$mahasiswa->no_telp = $request->no_telp;
+		$mahasiswa->judul = $request->judul;
+		$mahasiswa->pembimbing_1_id = $request->pembimbing_1_id;
+		$mahasiswa->pembimbing_2_id = $request->pembimbing_2_id;
+		$mahasiswa->persyaratan_1 = false;
+		$mahasiswa->persyaratan_2 = false;
+		$mahasiswa->persyaratan_3 = false;
+		$mahasiswa->persyaratan_4 = false;
+		$mahasiswa->persyaratan_5 = false;
+		$mahasiswa->persyaratan_6 = false;
+		$mahasiswa->save();
+
 
 		$mahasiswa->periode()->attach($periodeAktif->id);
 
-		JadwalSidang::create([
-			'memo' => $request['memo'],
-			'periode_id' => $periodeAktif->id,
-			'mahasiswa_id' => $mahasiswa->id,
-		]);
+		$jadwalSidang = new JadwalSidang();
+		$jadwalSidang->memo = $request->memo;
+		$jadwalSidang->periode_id = $periodeAktif->id;
+		$jadwalSidang->mahasiswa_id = $mahasiswa->id;
+		$jadwalSidang->save();
 
 		return back()->with('status', 'Daftar sidang TA berhasil. Silahkan datang ke PAJ untuk konfirmasi data dan bawa berkas persyaratan maju sidang TA ke petugas.');
 	}

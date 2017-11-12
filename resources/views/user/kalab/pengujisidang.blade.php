@@ -1,0 +1,74 @@
+@extends('layouts.appdosen')
+
+@section('content')
+<!-- Content Header (Page header) -->
+<section class="content-header">
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        @include('includes.common.status')
+        @include('includes.common.errors')
+        <div class="col-xs-12">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <div class="text-center">
+                        <h4>Jadwal Sidang TA {{$periodeAktif->nama}}</h4>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>NRP</th>
+                                <th>Nama</th>
+                                <th>Judul</th>
+                                <th>Tanggal</th>
+                                <th>Waktu</th>
+                                <th>Tempat</th>
+                                <th>Pembimbing 1</th>
+                                <th>Pembimbing 2</th>
+                                <th>Sekretaris</th>
+                                <th>Ketua</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($mahasiswas as $mahasiswa)
+                            <tr>
+                                <td>{{$mahasiswa->nrp}}</td>
+                                <td>{{$mahasiswa->nama}}</td>
+                                <td title="{{$mahasiswa->judul}}">{{$mahasiswa->judul}}</td>
+                                <td>{{Carbon\Carbon::parse($mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->tanggal)->formatLocalized('%A, %d %B %Y')}}</td>
+                                <td>{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->waktu}}</td>
+                                <td>{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->tempat->nama}}</td>
+                                <td>{{$mahasiswa->pembimbing1->user->name}} ({{$mahasiswa->pembimbing1->user->npk}})</td>
+                                <td>{{$mahasiswa->pembimbing2->user->name}} ({{$mahasiswa->pembimbing2->user->npk}})</td>
+                                <td>
+                                    <select class="form-control"></select><br>
+                                    <span class="total-menguji"></span>
+                                </td>
+                                <td>
+                                    <select class="form-control"></select><br>
+                                    <span class="total-menguji"></span>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+    
+</section>
+<!-- /.content -->
+
+<script>
+    $(function(){
+        
+    });
+</script>
+@endsection

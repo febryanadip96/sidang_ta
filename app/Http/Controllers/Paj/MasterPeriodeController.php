@@ -74,18 +74,19 @@ class MasterPeriodeController extends Controller
     public function get($id)
     {
     	$periode = Periode::findOrFail($id);
-    	$jadwals = Jadwal::where('periode_id', $periode->id)->distinct()->select('tanggal')->get();
-    	$hasil = '<table class="table"><tr>';
-    	foreach ($jadwals as $key => $jadwal) {
-    		$hasil .='<th>'.$jadwal->tanggal.'</th>';
-    	}
-    	$hasil.='</tr></table>';
-
-    	return $hasil;
+    	$tanggals = Jadwal::where('periode_id', $periode->id)->distinct()->select('tanggal')->get();
+        $jadwals = Jadwal::where('periode_id', $periode->id)->get();
+        return view('user.paj.masterperiode.setting',['periode' => $periode, 'tanggals' => $tanggals, 'jadwals' => $jadwals]);
     }
 
-    public function setting($id)
+    public function setting(Request $request, $id)
     {
-
+        $jadwals = $request->jadwal;
+        foreach ($jadwals as $id => $disabled) {
+            $jadwal = Jadwal::findOrFail($id);
+            $jadwal->disabled = $disabled;
+            $jadwal->save();
+        }
+        return back()->with('status', 'Data jadwal telah diperbarui');
     }
 }
