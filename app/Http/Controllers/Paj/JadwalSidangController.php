@@ -30,7 +30,7 @@ class JadwalSidangController extends Controller
         $dosens = Dosen::withCount(['jadwalKosong' => function($query) use($jadwalPeriodeAktif){
             $query->whereIn('id', $jadwalPeriodeAktif);
         }])->orderBy('jadwal_kosong_count','asc')->get();
-        $mahasiswas =  collect();;
+        $mahasiswas =  collect();
         foreach ($dosens as $key => $dosen) {
             foreach ($dosen->pembimbing1->whereIn('id', $mahasiswasId) as $key => $mahasiswa) {
                 $mahasiswas->push($mahasiswa);

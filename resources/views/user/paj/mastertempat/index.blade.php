@@ -18,9 +18,9 @@
                         <h4>Master Tempat</h4>
                     </div>
                 </div>
-                <div class="box-body">
+                <div class="box-body table-responsive">
                     <div>
-                        <table class="table table-bordered table-hover">
+                        <table class="table datatable">
                             <thead>
                                 <tr>
                                     <th>No</th>

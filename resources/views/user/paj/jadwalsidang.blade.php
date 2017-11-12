@@ -17,8 +17,8 @@
                         <h4>Jadwal Sidang TA {{$periodeAktif->nama}}</h4>
                     </div>
                 </div>
-                <div class="box-body">
-                    <table class="table table-bordered">
+                <div class="box-body table-responsive">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>NRP</th>
@@ -37,11 +37,13 @@
                                 <td>{{$mahasiswa->pembimbing2->user->name}} ({{$mahasiswa->pembimbing2->user->npk}})</td>
                                 <td>
                                     <select data-url="{{url('paj/jadwalsidang')}}" 
-                                    data-url-update={{url('paj/jadwalsidang/'.$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->id)}} class="form-control" pembimbing1-id="{{$mahasiswa->pembimbing1->id}}" pembimbing2-id="{{$mahasiswa->pembimbing2->id}}">
+                                    data-id={{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->id}} class="form-control" pembimbing1-id="{{$mahasiswa->pembimbing1->id}}" pembimbing2-id="{{$mahasiswa->pembimbing2->id}}">
                                         @if($mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal==null)
-                                            <option value="0">-</option>
+                                            <option value="0" selected>-</option>
+                                            <option></option>
                                         @else
-                                            <option value="{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->id}}">
+                                            <option></option>
+                                            <option value="{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->id}}" selected>
                                                 {{Carbon\Carbon::parse($mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->tanggal)->formatLocalized('%A, %d %B %Y')}} 
                                                 {{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->waktu}} 
                                                 {{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->tempat->nama}}
@@ -107,7 +109,7 @@
         $('select').on('change', function(){
             var ini = $(this);
             pilihanSesudah = $(this).val();
-            var url = $(this).attr('data-url-update');
+            var url = $(this).attr('data-url')+"/"+$(this).attr('data-id');
             $.ajax({
                 url:url,
                 type:'PUT',

@@ -17,8 +17,8 @@
                         <h4>Jadwal Sidang TA {{$periodeAktif->nama}}</h4>
                     </div>
                 </div>
-                <div class="box-body">
-                    <table class="table table-bordered">
+                <div class="box-body table-responsive">
+                    <table class="table datatable">
                         <thead>
                             <tr>
                                 <th>NRP</th>
@@ -46,7 +46,7 @@
                                 <td>{{$mahasiswa->pembimbing2->user->name}} ({{$mahasiswa->pembimbing2->user->npk}})</td>
                                 <td>
                                     @if($mahasiswa->sekretatis!=null)
-                                    $mahasiswa->sekretatis->user->name ($mahasiswa->sekretatis->user->npk)
+                                    {{$mahasiswa->sekretatis->user->name}} ({{$mahasiswa->sekretatis->user->npk}})
                                     @endif
                                 </td>
                                 <td>

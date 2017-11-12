@@ -17,7 +17,7 @@
                         <h4>Master Mahasiswa</h4>
                     </div>
                 </div>
-                <div class="box-body">
+                <div class="box-body table-responsive">
                     <div class="text-center">
                         <form id="formcarisiswa" class="form-inline" method="post" action="{{url('paj/mastermahasiswa')}}">
                             {{ csrf_field() }}
@@ -32,7 +32,7 @@
                         </form>
                     </div><br>
 
-                    <table class="table table-bordered table-hover">
+                    <table class="table datatable">
                         <thead>
                             <tr>
                                 <th rowspan="2" style="vertical-align:middle">No</th>

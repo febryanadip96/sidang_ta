@@ -17,8 +17,8 @@
                         <h4>Jadwal Sidang TA {{$periodeAktif->nama}}</h4>
                     </div>
                 </div>
-                <div class="box-body">
-                    <table class="table table-bordered">
+                <div class="box-body table-responsive">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>NRP</th>
@@ -45,11 +45,31 @@
                                 <td>{{$mahasiswa->pembimbing1->user->name}} ({{$mahasiswa->pembimbing1->user->npk}})</td>
                                 <td>{{$mahasiswa->pembimbing2->user->name}} ({{$mahasiswa->pembimbing2->user->npk}})</td>
                                 <td>
-                                    <select class="form-control"></select><br>
+                                    <select class="form-control sekretaris" data-url="{{url('kalab/pengujisidang/sekretaris')}}" data-id="{{$mahasiswa->jadwalSidang->where('periode_id',$periodeAktif->id)->first()->id}}">
+                                        @if($mahasiswa->sekretatis==null)
+                                            <option value="0" selected>-</option>
+                                            <option></option>
+                                        @else
+                                            <option></option>
+                                            <option value="{{$mahasiswa->sekretatis->id}}" selected>
+                                                {{$mahasiswa->sekretatis->user->name}} ({{$mahasiswa->sekretatis->user->npk}})
+                                            </option>
+                                        @endif
+                                    </select><br>
                                     <span class="total-menguji"></span>
                                 </td>
                                 <td>
-                                    <select class="form-control"></select><br>
+                                    <select class="form-control ketua"  data-url="{{url('kalab/pengujisidang/ketua')}}" data-id="{{$mahasiswa->jadwalSidang->where('periode_id',$periodeAktif->id)->first()->id}}">
+                                        @if($mahasiswa->ketua==null)
+                                            <option value="0" selected>-</option>
+                                            <option></option>
+                                        @else
+                                            <option></option>
+                                            <option value="{{$mahasiswa->ketua->id}}" selected>
+                                                {{$mahasiswa->ketua->user->name}} ({{$mahasiswa->ketua->user->npk}})
+                                            </option>
+                                        @endif
+                                    </select><br>
                                     <span class="total-menguji"></span>
                                 </td>
                             </tr>
@@ -68,7 +88,103 @@
 
 <script>
     $(function(){
-        
+        $('.sekretaris').on('click change', function(){
+            var ini = $(this);
+            var pilih = $(this).val();
+            var url = $(this).attr('data-url')+"/"+$(this).attr('data-id');
+            var hasil = "<option value='0'>-</option>";
+            $.post(url,{pilih:pilih},function(data){
+                //alert(JSON.stringify(data));
+                for (var i = 0; i < data.length; i++) {
+                    if(data[i].id == pilih){
+                        hasil += '<option value="'+data[i].id+'" selected>'+data[i].user.name+'('+data[i].user.npk+')</option>';
+                    }
+                    else{
+                        hasil += '<option value="'+data[i].id+'" >'+data[i].user.name+'('+data[i].user.npk+')</option>';
+                    }
+                }
+                ini.html(hasil);
+            });
+        });
+
+        var sekretarisSebelum;
+        var sekretarisSesudah;
+        $('.sekretaris').on('click', function(){
+            sekretarisSebelum = $(this).val();
+        });
+
+        $('.sekretaris').on('change', function(){
+            var ini = $(this);
+            sekretarisSesudah = $(this).val();
+            var url = $(this).attr('data-url')+"/"+$(this).attr('data-id');
+            $.ajax({
+                url:url,
+                type:'PUT',
+                data:{
+                    sekretarisSebelum:sekretarisSebelum,
+                    sekretarisSesudah:sekretarisSesudah,
+                },
+                success: function(data){
+                    //alert(JSON.stringify(data));
+                    if(data){
+                        ini.css('background', 'yellow');
+                        ini.delay(5000).queue(function (next) { 
+                            $(this).css('background', 'none'); 
+                            next(); 
+                        });
+                    }
+                },
+            });
+        });
+
+        $('.ketua').on('click change', function(){
+            var ini = $(this);
+            var pilih = $(this).val();
+            var url = $(this).attr('data-url')+"/"+$(this).attr('data-id');
+            var hasil = "<option value='0'>-</option>";
+            $.post(url,{pilih:pilih},function(data){
+                //alert(JSON.stringify(data));
+                for (var i = 0; i < data.length; i++) {
+                    if(data[i].id == pilih){
+                        hasil += '<option value="'+data[i].id+'" selected>'+data[i].user.name+'('+data[i].user.npk+')</option>';
+                    }
+                    else{
+                        hasil += '<option value="'+data[i].id+'" >'+data[i].user.name+'('+data[i].user.npk+')</option>';
+                    }
+                }
+                ini.html(hasil);
+            });
+        });
+
+        var ketuaSebelum;
+        var ketuaSesudah;
+        $('.ketua').on('click', function(){
+            ketuaSebelum = $(this).val();
+        });
+
+        $('.ketua').on('change', function(){
+            var ini = $(this);
+            ketuaSesudah = $(this).val();
+            var url = $(this).attr('data-url')+"/"+$(this).attr('data-id');
+            $.ajax({
+                url:url,
+                type:'PUT',
+                data:{
+                    ketuaSebelum:ketuaSebelum,
+                    ketuaSesudah:ketuaSesudah,
+                },
+                success: function(data){
+                    //alert(JSON.stringify(data));
+                    if(data){
+                        ini.css('background', 'yellow');
+                        ini.delay(5000).queue(function (next) { 
+                            $(this).css('background', 'none'); 
+                            next(); 
+                        });
+                    }
+                },
+            });
+        });
     });
 </script>
 @endsection

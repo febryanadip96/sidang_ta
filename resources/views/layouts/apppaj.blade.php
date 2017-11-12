@@ -145,7 +145,7 @@
 	
 	<script>
 		$(function () {
-			$('.table-hover').DataTable({
+			$('.datatable').DataTable({
 				"aoColumnDefs": [
 				  	{ 'bSortable': false, 'aTargets': ['no-sort'] }
 				],

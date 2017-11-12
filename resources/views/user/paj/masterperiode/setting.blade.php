@@ -19,10 +19,10 @@
                     </div>
                 </div>
                 <form class="form-horizontal" method="POST" action="{{url('paj/masterperiode/'.$periode->id)}}">
-                <div class="box-body">
+                <div class="box-body table-responsive">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
-                    <table class="table table-bordered">
+                    <table class="table">
                         <tr>
                             <th>Jam \ Tanggal</th>
                             @foreach($tanggals as $tanggal)

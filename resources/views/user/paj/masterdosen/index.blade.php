@@ -18,8 +18,8 @@
                         <h4>Master Dosen</h4>
                     </div>
                 </div>
-                <div class="box-body">
-                    <table class="table table-bordered table-hover">
+                <div class="box-body table-responsive">
+                    <table class="table datatable">
                         <thead>
                             <tr>
                                 <th>No</th>

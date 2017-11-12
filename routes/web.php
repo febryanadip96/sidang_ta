@@ -54,3 +54,7 @@ Route::post('dosen/jadwalkosong/{id}', 'Dosen\JadwalKosongController@simpan');
 Route::get('dosen/jadwalsidang', 'Dosen\JadwalSidangController@index');
 
 Route::get('kalab/pengujisidang', 'Kalab\PengujiSidangController@index');
+Route::post('kalab/pengujisidang/sekretaris/{id}', 'Kalab\PengujiSidangController@getSekretaris');
+Route::put('kalab/pengujisidang/sekretaris/{id}', 'Kalab\PengujiSidangController@updateSekretaris');
+Route::post('kalab/pengujisidang/ketua/{id}', 'Kalab\PengujiSidangController@getKetua');
+Route::put('kalab/pengujisidang/ketua/{id}', 'Kalab\PengujiSidangController@updateKetua');
