@@ -167,6 +167,16 @@
 						$('#btnSubmit').attr('disabled',false);
 					}
 				}
+				if(nrp==''){
+					$('#id').val(0);
+					$('#nama').val("").attr('disabled',true).attr('readonly',false);
+					$('#no_telp').val("").attr('disabled',true);
+					$('#judul').val("").attr('disabled',true);
+					$('#pembimbing_1_id').val(0).attr('disabled',true);
+					$('#pembimbing_2_id').val(0).attr('disabled',true);
+					$('#memo').val("").attr('disabled',true);
+					$('#btnSubmit').attr('disabled',true);
+				}
 			});
 		});
 	});

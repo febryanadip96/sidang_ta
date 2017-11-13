@@ -76,6 +76,7 @@ class DaftarController extends Controller
 		$mahasiswa->persyaratan_4 = false;
 		$mahasiswa->persyaratan_5 = false;
 		$mahasiswa->persyaratan_6 = false;
+		$mahasiswa->status_lulus = false;
 		$mahasiswa->save();
 
 

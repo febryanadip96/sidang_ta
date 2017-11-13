@@ -39,19 +39,29 @@
                                 <td>{{$mahasiswa->nrp}}</td>
                                 <td>{{$mahasiswa->nama}}</td>
                                 <td>{{$mahasiswa->judul}}</td>
-                                <td>{{Carbon\Carbon::parse($mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->tanggal)->formatLocalized('%A, %d %B %Y')}}</td>
-                                <td>{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->waktu}}</td>
-                                <td>{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->tempat->nama}}</td>
+                                @if($mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal==null)
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                @else
+                                    <td>{{Carbon\Carbon::parse($mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->tanggal)->formatLocalized('%A, %d %B %Y')}}</td>
+                                    <td>{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->waktu}}</td>
+                                    <td>{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->tempat->nama}}</td>
+                                @endif
                                 <td>{{$mahasiswa->pembimbing1->user->name}} ({{$mahasiswa->pembimbing1->user->npk}})</td>
                                 <td>{{$mahasiswa->pembimbing2->user->name}} ({{$mahasiswa->pembimbing2->user->npk}})</td>
                                 <td>
                                     @if($mahasiswa->sekretatis!=null)
                                     {{$mahasiswa->sekretatis->user->name}} ({{$mahasiswa->sekretatis->user->npk}})
+                                    @else
+                                    -
                                     @endif
                                 </td>
                                 <td>
                                     @if($mahasiswa->ketua!=null)
                                     {{$mahasiswa->ketua->user->name}} ({{$mahasiswa->ketua->user->npk}})
+                                    @else
+                                    -
                                     @endif
                                 </td>
                             </tr>

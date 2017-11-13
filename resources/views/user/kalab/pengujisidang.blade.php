@@ -39,24 +39,35 @@
                                 <td>{{$mahasiswa->nrp}}</td>
                                 <td>{{$mahasiswa->nama}}</td>
                                 <td title="{{$mahasiswa->judul}}">{{$mahasiswa->judul}}</td>
-                                <td>{{Carbon\Carbon::parse($mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->tanggal)->formatLocalized('%A, %d %B %Y')}}</td>
-                                <td>{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->waktu}}</td>
-                                <td>{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->tempat->nama}}</td>
+                                @if($mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal==null)
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                @else
+                                    <td>{{Carbon\Carbon::parse($mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->tanggal)->formatLocalized('%A, %d %B %Y')}}</td>
+                                    <td>{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->jadwal->waktu}}</td>
+                                    <td>{{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal->tempat->nama}}</td>
+                                @endif
                                 <td>{{$mahasiswa->pembimbing1->user->name}} ({{$mahasiswa->pembimbing1->user->npk}})</td>
                                 <td>{{$mahasiswa->pembimbing2->user->name}} ({{$mahasiswa->pembimbing2->user->npk}})</td>
                                 <td>
                                     <select class="form-control sekretaris" data-url="{{url('kalab/pengujisidang/sekretaris')}}" data-id="{{$mahasiswa->jadwalSidang->where('periode_id',$periodeAktif->id)->first()->id}}">
-                                        @if($mahasiswa->sekretatis==null)
+                                        @if($mahasiswa->sekretaris==null)
                                             <option value="0" selected>-</option>
                                             <option></option>
                                         @else
                                             <option></option>
-                                            <option value="{{$mahasiswa->sekretatis->id}}" selected>
-                                                {{$mahasiswa->sekretatis->user->name}} ({{$mahasiswa->sekretatis->user->npk}})
+                                            <option value="{{$mahasiswa->sekretaris->id}}" selected>
+                                                {{$mahasiswa->sekretaris->user->name}} ({{$mahasiswa->sekretaris->user->npk}})
                                             </option>
                                         @endif
-                                    </select><br>
-                                    <span class="total-menguji"></span>
+                                    </select>
+                                    @if($mahasiswa->sekretaris==null)
+                                        <span class="total-menguji menguji-0">0</span>
+                                    @else
+                                        <span class="total-menguji menguji-{{$mahasiswa->sekretaris->id}}">{{$mahasiswa->sekretaris->sekretaris->count()+$mahasiswa->sekretaris->ketua->count()}}</span>
+                                    @endif
+                                    
                                 </td>
                                 <td>
                                     <select class="form-control ketua"  data-url="{{url('kalab/pengujisidang/ketua')}}" data-id="{{$mahasiswa->jadwalSidang->where('periode_id',$periodeAktif->id)->first()->id}}">
@@ -69,8 +80,13 @@
                                                 {{$mahasiswa->ketua->user->name}} ({{$mahasiswa->ketua->user->npk}})
                                             </option>
                                         @endif
-                                    </select><br>
-                                    <span class="total-menguji"></span>
+                                    </select>
+                                    @if($mahasiswa->ketua==null)
+                                        <span class="total-menguji menguji-0">0</span>
+                                    @else
+                                        <span class="total-menguji menguji-{{$mahasiswa->ketua->id}}">{{$mahasiswa->ketua->sekretaris->count()+$mahasiswa->ketua->ketua->count()}}</span>
+                                    @endif
+                                    
                                 </td>
                             </tr>
                             @endforeach
@@ -116,6 +132,8 @@
         $('.sekretaris').on('change', function(){
             var ini = $(this);
             sekretarisSesudah = $(this).val();
+            ini.parent().find('span').removeClass('menguji-'+sekretarisSebelum);
+            ini.parent().find('span').addClass('menguji-'+sekretarisSesudah);
             var url = $(this).attr('data-url')+"/"+$(this).attr('data-id');
             $.ajax({
                 url:url,
@@ -126,13 +144,18 @@
                 },
                 success: function(data){
                     //alert(JSON.stringify(data));
-                    if(data){
+                    if(data.hasil){
                         ini.css('background', 'yellow');
+                        for (var i in data.data) {
+                            //alert(i+" "+data.data[i]);
+                            $('.menguji-'+i).html(data.data[i])
+                        }
                         ini.delay(5000).queue(function (next) { 
                             $(this).css('background', 'none'); 
                             next(); 
                         });
                     }
+                    
                 },
             });
         });
@@ -165,6 +188,8 @@
         $('.ketua').on('change', function(){
             var ini = $(this);
             ketuaSesudah = $(this).val();
+            ini.parent().find('span').removeClass('menguji-'+ketuaSebelum);
+            ini.parent().find('span').addClass('menguji-'+ketuaSesudah);
             var url = $(this).attr('data-url')+"/"+$(this).attr('data-id');
             $.ajax({
                 url:url,
@@ -175,13 +200,18 @@
                 },
                 success: function(data){
                     //alert(JSON.stringify(data));
-                    if(data){
+                    if(data.hasil){
                         ini.css('background', 'yellow');
+                        for (var i in data.data) {
+                            //alert(i+" "+data.data[i]);
+                            $('.menguji-'+i).html(data.data[i])
+                        }
                         ini.delay(5000).queue(function (next) { 
                             $(this).css('background', 'none'); 
                             next(); 
                         });
                     }
+                    
                 },
             });
         });

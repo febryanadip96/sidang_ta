@@ -87,9 +87,32 @@ class PengujiSidangController extends Controller
             $jadwalSidang->mahasiswa->sekretaris_id = null;
             $jadwalSidang->mahasiswa->save();
         }
+
+        if($sekretarisSebelumId!=0){
+            $sekretarisSebelum = Dosen::find($sekretarisSebelumId);
+            $jumlahMengujiSekretarisSebelum = 0;
+            $jumlahMengujiSekretarisSebelum += $sekretarisSebelum->sekretaris->count();
+            $jumlahMengujiSekretarisSebelum += $sekretarisSebelum->ketua->count();
+        }
+        else{
+            $jumlahMengujiSekretarisSebelum = 0;
+        }
+        if($sekretarisSesudahId!=0){
+            $sekretarisSesudah = Dosen::find($sekretarisSesudahId);
+            $jumlahMengujiSekretarisSesudah = 0;
+            $jumlahMengujiSekretarisSesudah += $sekretarisSesudah->sekretaris->count();
+            $jumlahMengujiSekretarisSesudah += $sekretarisSesudah->ketua->count();
+        }
+        else{
+            $jumlahMengujiSekretarisSesudah = 0;
+        }
         
         return response()->json([
             'hasil' => true,
+            'data' => [
+                $sekretarisSebelumId => $jumlahMengujiSekretarisSebelum,
+                $sekretarisSesudahId => $jumlahMengujiSekretarisSesudah,
+            ]
         ]);
     }
 
@@ -109,9 +132,32 @@ class PengujiSidangController extends Controller
             $jadwalSidang->mahasiswa->ketua_id = null;
             $jadwalSidang->mahasiswa->save();
         }
+
+        if($ketuaSebelumId!=0){
+            $ketuaSebelum = Dosen::find($ketuaSebelumId);
+            $jumlahMengujiKetuaSebelum = 0;
+            $jumlahMengujiKetuaSebelum += $ketuaSebelum->sekretaris->count();
+            $jumlahMengujiKetuaSebelum += $ketuaSebelum->ketua->count();
+        }
+        else{
+            $jumlahMengujiSekretarisSebelum = 0;
+        }
+        if($ketuaSesudahId!=0){
+            $ketuaSesudah = Dosen::find($ketuaSesudahId);
+            $jumlahMengujiKetuaSesudah = 0;
+            $jumlahMengujiKetuaSesudah += $ketuaSesudah->sekretaris->count();
+            $jumlahMengujiKetuaSesudah += $ketuaSesudah->ketua->count();
+        }
+        else{
+            $jumlahMengujiKetuaSesudah = 0;
+        }
         
         return response()->json([
             'hasil' => true,
+            'data' => [
+                $ketuaSebelumId => $jumlahMengujiKetuaSebelum,
+                $ketuaSesudahId => $jumlahMengujiKetuaSesudah,
+            ]
         ]);
     }
 }

@@ -49,8 +49,8 @@ class JadwalSidangController extends Controller
         $pembimbing1 = Dosen::findOrFail($request->idPembimbing1);
         $pembimbing2 = Dosen::findOrFail($request->idPembimbing2);
         //return $pembimbing1;
-        $jadwalKosongPembimbing1 = $pembimbing1->jadwalKosong->where('diambil', 0)->where('periode_id',$periodeAktif->id)->pluck('id');
-        $jadwalKosongPembimbing2 = $pembimbing2->jadwalKosong->where('diambil', 0)->where('periode_id',$periodeAktif->id)->pluck('id');
+        $jadwalKosongPembimbing1 = $pembimbing1->jadwalKosong()->wherePivot('diambil', 0)->where('periode_id',$periodeAktif->id)->where('disabled', 0)->pluck('id');
+        $jadwalKosongPembimbing2 = $pembimbing2->jadwalKosong()->wherePivot('diambil', 0)->where('periode_id',$periodeAktif->id)->where('disabled', 0)->pluck('id');
         $tempatJadwalId = TempatJadwal::doesntHave('jadwalSidang')->whereIn('jadwal_id', $jadwalKosongPembimbing1)->whereIn('jadwal_id', $jadwalKosongPembimbing2)->get()->pluck('id')->push($request->pilih);
         $tempatJadwal = TempatJadwal::whereIn('id', $tempatJadwalId)->get();
 

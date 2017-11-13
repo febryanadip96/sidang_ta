@@ -32,7 +32,7 @@ class Mahasiswa extends Model
 		return $this->belongsTo('App\Dosen', 'pembimbing_2_id');
 	}
 
-	public function sekretatis()
+	public function sekretaris()
 	{
 		return $this->belongsTo('App\Dosen', 'sekretaris_id');
 	}
