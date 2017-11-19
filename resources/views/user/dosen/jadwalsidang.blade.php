@@ -51,14 +51,14 @@
                                 <td>{{$mahasiswa->pembimbing1->user->name}} ({{$mahasiswa->pembimbing1->user->npk}})</td>
                                 <td>{{$mahasiswa->pembimbing2->user->name}} ({{$mahasiswa->pembimbing2->user->npk}})</td>
                                 <td>
-                                    @if($mahasiswa->sekretatis!=null)
-                                    {{$mahasiswa->sekretatis->user->name}} ({{$mahasiswa->sekretatis->user->npk}})
+                                    @if($mahasiswa->sekretaris)
+                                    {{$mahasiswa->sekretaris->user->name}} ({{$mahasiswa->sekretaris->user->npk}})
                                     @else
                                     -
                                     @endif
                                 </td>
                                 <td>
-                                    @if($mahasiswa->ketua!=null)
+                                    @if($mahasiswa->ketua)
                                     {{$mahasiswa->ketua->user->name}} ({{$mahasiswa->ketua->user->npk}})
                                     @else
                                     -

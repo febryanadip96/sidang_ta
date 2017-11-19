@@ -22,6 +22,7 @@ Route::post('daftar/cekmahasiswa', 'DaftarController@cekMahasiswa');
 
 //paj
 Route::get('paj/jadwalsidang','Paj\JadwalSidangController@index');
+Route::get('paj/jadwalsidang/{id}','Paj\JadwalSidangController@lihat');
 Route::post('paj/jadwalsidang', 'Paj\JadwalSidangController@getWaktuUji');
 Route::put('paj/jadwalsidang/{id}', 'Paj\JadwalSidangController@updateJadwal');
 

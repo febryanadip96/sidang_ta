@@ -23,6 +23,9 @@
 				      	<h4><span class='fa fa-info'></span> Pendaftaran Sidang TA sudah ditutup</h4>
 				    </div>
 				@endif
+				<div class="text-center">
+			      	<h5 id="pesan"></h5>
+			    </div>
 				<form class="form-horizontal" method="POST" action="{{ url('daftar') }}">
 					<div class="box-body">
 			          	{{ csrf_field() }}
@@ -76,7 +79,7 @@
 							<label for="pembimbing_2_id" class="col-md-4 control-label">Pembimbing 2</label>
 							<div class="col-md-6">
 								<select id="pembimbing_2_id" name="pembimbing_2_id" class="form-control" disabled>
-									<option>-</option>
+									<option value="0">-</option>
 									@foreach($dosens as $dosen)
 										<option value="{{$dosen->id}}">{{$dosen->user->name}} ({{$dosen->user->npk}})</option>
 									@endforeach
@@ -111,19 +114,34 @@
 	$(function(){
 		$('#pembimbing_1_id').change(function() {
 			var value = $(this).val();
-		    $('#pembimbing_2_id').children('option').each(function() {
-		        if ( $(this).val() === value ) {
-		            $(this).attr('readonly', true).siblings().removeAttr('readonly');   
-		        }
-		    });
+			if(value!=0){
+				$('#pembimbing_2_id').children('option').each(function() {
+			        if ( $(this).val() === value ) {
+			            $(this).attr('disabled', true).siblings().removeAttr('disabled');   
+			        }
+			    });
+			}
+			else{
+				$('#pembimbing_2_id').children('option').each(function() {
+		            $(this).removeAttr('disabled'); 
+			    });
+			}
 		});
 		$('#pembimbing_2_id').change(function() {
 			var value = $(this).val();
-		    $('#pembimbing_1_id').children('option').each(function() {
-		        if ( $(this).val() === value ) {
-		            $(this).attr('readonly', true).siblings().removeAttr('readonly');   
-		        }
-		    });
+			if(value!=0)
+			{
+				$('#pembimbing_1_id').children('option').each(function() {
+			        if ( $(this).val() === value ) {
+			            $(this).attr('disabled', true).siblings().removeAttr('disabled');   
+			        }
+			    });
+			}
+			else{
+				$('#pembimbing_1_id').children('option').each(function() {
+		            $(this).removeAttr('disabled');   
+			    });
+			}
 		});
 		$.ajaxSetup({
 		    headers: {
@@ -135,9 +153,10 @@
 			var nrp = $(this).val();
 			$.post("{{url('daftar/cekmahasiswa')}}",{nrp:nrp},function(data){
 				//alert(JSON.stringify(data));
+				$('#pesan').html(data.pesan);
 				if(data.terdaftar){
 					$('#id').val(data.mahasiswa.id);
-					$('#nama').val(data.mahasiswa.nama).attr('disabled',true).attr('readonly',false);
+					$('#nama').val(data.mahasiswa.nama).attr('disabled',true);
 					$('#no_telp').val(data.mahasiswa.no_telp).attr('disabled',true);
 					$('#judul').val(data.mahasiswa.judul).attr('disabled',true);
 					$('#pembimbing_1_id').val(data.mahasiswa.pembimbing_1_id).attr('disabled',true);
@@ -148,7 +167,7 @@
 				else{
 					if(data.mahasiswa!=null){
 						$('#id').val(data.mahasiswa.id);
-						$('#nama').val(data.mahasiswa.nama).attr('disabled',false).attr('readonly',true);
+						$('#nama').val(data.mahasiswa.nama).attr('disabled',false);
 						$('#no_telp').val(data.mahasiswa.no_telp).attr('disabled',false);
 						$('#judul').val(data.mahasiswa.judul).attr('disabled',false);
 						$('#pembimbing_1_id').val(data.mahasiswa.pembimbing_1_id).attr('disabled',false);
@@ -158,7 +177,7 @@
 					}
 					else{
 						$('#id').val(0);
-						$('#nama').val('').attr('disabled',false).attr('readonly',false);
+						$('#nama').val('').attr('disabled',false);
 						$('#no_telp').val('').attr('disabled',false);
 						$('#judul').val('').attr('disabled',false);
 						$('#pembimbing_1_id').val('').attr('disabled',false);
@@ -169,7 +188,7 @@
 				}
 				if(nrp==''){
 					$('#id').val(0);
-					$('#nama').val("").attr('disabled',true).attr('readonly',false);
+					$('#nama').val("").attr('disabled',true);
 					$('#no_telp').val("").attr('disabled',true);
 					$('#judul').val("").attr('disabled',true);
 					$('#pembimbing_1_id').val(0).attr('disabled',true);

@@ -26,6 +26,7 @@
                                 <th>Pembimbing 1</th>
                                 <th>Pembimbing 2</th>
                                 <th>Tempat/Waktu</th>
+                                <th>Lihat Jadwal Kosong</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,7 +38,7 @@
                                 <td>{{$mahasiswa->pembimbing2->user->name}} ({{$mahasiswa->pembimbing2->user->npk}})</td>
                                 <td>
                                     <select data-url="{{url('paj/jadwalsidang')}}" 
-                                    data-id={{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->id}} class="form-control" pembimbing1-id="{{$mahasiswa->pembimbing1->id}}" pembimbing2-id="{{$mahasiswa->pembimbing2->id}}">
+                                    data-id={{$mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->id}} class="form-control" mahasiswa-id="{{$mahasiswa->id}}">
                                         @if($mahasiswa->jadwalSidang->where('periode_id', $periodeAktif->id)->first()->tempatJadwal==null)
                                             <option value="0" selected>-</option>
                                             <option></option>
@@ -50,6 +51,9 @@
                                             </option>
                                         @endif
                                     </select>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" href="{{url('paj/jadwalsidang/'.$mahasiswa->id)}}"><span class="glyphicon glyphicon-eye-open"></span></a>
                             </td>
                             </tr>
                             @endforeach
@@ -71,12 +75,11 @@
             var ini = $(this);
             var pilih = $(this).val();
             var url = $(this).attr('data-url');
-            var idPembimbing1 = $(this).attr('pembimbing1-id');
-            var idPembimbing2 = $(this).attr('pembimbing2-id');
+            var idMahasiswa = $(this).attr('mahasiswa-id');
             var days=['Minggu','Senin','Selasa','Rabu','Kamis','Jum\'at','Sabtu'];
             var bulan=['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli','Agustus', 'September', 'Oktober', 'Nopember', 'Desember'];
             var hasil = "<option value='0'>-</option>";
-            $.post(url,{idPembimbing1:idPembimbing1, idPembimbing2:idPembimbing2, pilih:pilih}, function(data){
+            $.post(url,{idMahasiswa:idMahasiswa, pilih:pilih}, function(data){
                 for (var i = 0; i < data.length; i++) {
                     var text="";
                     var from = data[i].jadwal.tanggal.split("-");

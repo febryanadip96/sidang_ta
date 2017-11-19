@@ -43,22 +43,25 @@ class DaftarController extends Controller
 			'nrp' => 'required',
 			'no_telp' => 'required|min:12',
 			'judul' => 'required',
-			'pembimbing_1_id' => 'required|numeric',
-			'pembimbing_2_id' => 'required|numeric',
+			'pembimbing_1_id' => 'required|integer|min:1',
+			'pembimbing_2_id' => 'required|integer|min:1',
 		],[
 			'nama.required' => 'Nama harus diisi',
 			'nrp.required' => 'NRP harus diiisi',
 			'no_telp.required' => 'Nomor Telpon harus diisi',
 			'pembimbing_1_id.required' => 'Data Pembimbing 1 tidak valid',
 			'pembimbing_2_id.required' => 'Data Pembimbing 2 tidak valid',
-			'pembimbing_1_id.numeric' => 'Data Pembimbing 1 tidak valid',
-			'pembimbing_2_id.numeric' => 'Data Pembimbing 2 tidak valid',
+			'pembimbing_1_id.integer' => 'Data Pembimbing 1 tidak valid',
+			'pembimbing_2_id.integer' => 'Data Pembimbing 2 tidak valid',
+			'pembimbing_1_id.min' => 'Data Pembimbing 1 tidak valid',
+			'pembimbing_2_id.min' => 'Data Pembimbing 2 tidak valid',
 		]);
 
 		$periodeAktif = Periode::where('status', 1)->first();
 
 		if($request->id==0){
 			$mahasiswa = new Mahasiswa();
+			$mahasiswa->status_lulus = false;
 		}
 		else{
 			$mahasiswa = Mahasiswa::findOrFail($request->id);
@@ -76,7 +79,6 @@ class DaftarController extends Controller
 		$mahasiswa->persyaratan_4 = false;
 		$mahasiswa->persyaratan_5 = false;
 		$mahasiswa->persyaratan_6 = false;
-		$mahasiswa->status_lulus = false;
 		$mahasiswa->save();
 
 
@@ -98,21 +100,31 @@ class DaftarController extends Controller
 		$terdaftar=false;
 		if($mahasiswa)//ada data siswa atau tidak
 		{
-			if($mahasiswa->periode)//sudah pernah mendaftar di periode lain
+			$pesan = "Silahkan mengisi data lengkap";
+			if($mahasiswa->status_lulus)//mahasiswa sudah lulus
 			{
-				if($mahasiswa->periode->where('id',$periodeAktif->id)->first())//siswa terdaftar di periode aktif ini
+				$terdaftar = true;
+				$pesan = "Mahasiswa sudah lulus";
+			}
+			else if($mahasiswa->periode)//sudah pernah mendaftar di periode lain
+			{
+				if($mahasiswa->periode->where('id',$periodeAktif->id)->first())//siswa terdaftar di periode aktif saat ini
 				{
 					$terdaftar=true;
+					$pesan = "Mahasiswa sudah terdaftar pada periode saat ini";
 				}
 			}
 			return response()->json([
-				"mahasiswa" => $mahasiswa->toArray(),
+				"mahasiswa" => $mahasiswa,
 				"terdaftar" => $terdaftar,
+				"pesan" => $pesan,
 			]);
 		}
 		else{//belum terdaftar
+			$pesan = "Silahkan mengisi data lengkap";
 			return response()->json([
 				"terdaftar" => $terdaftar,
+				"pesan" => $pesan,
 			]);
 		}
 		
