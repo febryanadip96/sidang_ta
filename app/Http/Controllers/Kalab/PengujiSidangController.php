@@ -17,9 +17,11 @@ class PengujiSidangController extends Controller
 
     public function index()
     {
+		$dosenTidakLayaks = Dosen::where('kelayakan', 0)->get();
+		$dosenLayaks = Dosen::where('kelayakan', 1)->get();
     	$periodeAktif = Periode::where('status', 1)->first();
     	$mahasiswas = $periodeAktif->daftarMahasiswa;
-    	return view('user.kalab.pengujisidang', ['periodeAktif' => $periodeAktif ,'mahasiswas' => $mahasiswas]);
+    	return view('user.kalab.pengujisidang', ['periodeAktif' => $periodeAktif ,'mahasiswas' => $mahasiswas, 'dosenLayaks' => $dosenLayaks, 'dosenTidakLayaks' => $dosenTidakLayaks]);
     }
 
     public function getSekretaris(Request $request, $id)
@@ -67,7 +69,7 @@ class PengujiSidangController extends Controller
 
         $ketuaId = $jadwalSidang->tempatJadwal->jadwal->dosenKosong()->wherePivot('diambil', false)->where('kelayakan', true)->whereNotIn('id', $idExcpetion)->get()->pluck('id')->push($request->pilih);
         $ketua = Dosen::whereIn('id', $ketuaId)->get();
-        
+
         return $ketua->load('user');
     }
 
@@ -106,7 +108,7 @@ class PengujiSidangController extends Controller
         else{
             $jumlahMengujiSekretarisSesudah = 0;
         }
-        
+
         return response()->json([
             'hasil' => true,
             'data' => [
@@ -151,7 +153,7 @@ class PengujiSidangController extends Controller
         else{
             $jumlahMengujiKetuaSesudah = 0;
         }
-        
+
         return response()->json([
             'hasil' => true,
             'data' => [

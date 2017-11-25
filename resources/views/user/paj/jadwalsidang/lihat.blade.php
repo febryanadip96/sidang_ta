@@ -1,10 +1,6 @@
 @extends('layouts.apppaj')
 
 @section('content')
-<!-- Content Header (Page header) -->
-<section class="content-header">
-</section>
-
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -328,7 +324,7 @@
             <!-- /.box -->
         </div>
     </div>
-    
+
 </section>
 <!-- /.content -->
 

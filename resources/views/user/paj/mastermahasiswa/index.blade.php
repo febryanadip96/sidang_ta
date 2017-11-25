@@ -1,10 +1,6 @@
 @extends('layouts.apppaj')
 
 @section('content')
-<!-- Content Header (Page header) -->
-<section class="content-header">
-</section>
-
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -117,7 +113,7 @@
                         <div class="checkbox">
                             <label><input type="checkbox" id="persyaratan_6" name="persyaratan_6" value="1">Persyaratan 6</label>
                         </div>
-                        
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
@@ -130,7 +126,7 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-    
+
 </section>
 <!-- /.content -->
 

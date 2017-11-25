@@ -1,10 +1,6 @@
 @extends('layouts.appdosen')
 
 @section('content')
-<!-- Content Header (Page header) -->
-<section class="content-header">
-</section>
-
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -50,7 +46,7 @@
                                 @endif
                                 <td>{{$mahasiswa->pembimbing1->user->name}} ({{$mahasiswa->pembimbing1->user->npk}})</td>
                                 <td>{{$mahasiswa->pembimbing2->user->name}} ({{$mahasiswa->pembimbing2->user->npk}})</td>
-                                <td>
+                                <td class="text-center">
                                     <select class="form-control sekretaris" data-url="{{url('kalab/pengujisidang/sekretaris')}}" data-id="{{$mahasiswa->jadwalSidang->where('periode_id',$periodeAktif->id)->first()->id}}">
                                         @if($mahasiswa->sekretaris==null)
                                             <option value="0" selected>-</option>
@@ -63,13 +59,13 @@
                                         @endif
                                     </select>
                                     @if($mahasiswa->sekretaris==null)
-                                        <span class="total-menguji menguji-0">0</span>
+                                        <span class="menguji-0">0</span>
                                     @else
-                                        <span class="total-menguji menguji-{{$mahasiswa->sekretaris->id}}">{{$mahasiswa->sekretaris->sekretaris->count()+$mahasiswa->sekretaris->ketua->count()}}</span>
+                                        <span class="menguji-{{$mahasiswa->sekretaris->id}}">{{$mahasiswa->sekretaris->sekretaris->count()+$mahasiswa->sekretaris->ketua->count()}}</span>
                                     @endif
-                                    
+
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <select class="form-control ketua"  data-url="{{url('kalab/pengujisidang/ketua')}}" data-id="{{$mahasiswa->jadwalSidang->where('periode_id',$periodeAktif->id)->first()->id}}">
                                         @if($mahasiswa->ketua==null)
                                             <option value="0" selected>-</option>
@@ -82,11 +78,11 @@
                                         @endif
                                     </select>
                                     @if($mahasiswa->ketua==null)
-                                        <span class="total-menguji menguji-0">0</span>
+                                        <span class="menguji-0">0</span>
                                     @else
-                                        <span class="total-menguji menguji-{{$mahasiswa->ketua->id}}">{{$mahasiswa->ketua->sekretaris->count()+$mahasiswa->ketua->ketua->count()}}</span>
+                                        <span class="menguji-{{$mahasiswa->ketua->id}}">{{$mahasiswa->ketua->sekretaris->count()+$mahasiswa->ketua->ketua->count()}}</span>
                                     @endif
-                                    
+
                                 </td>
                             </tr>
                             @endforeach
@@ -97,13 +93,43 @@
             </div>
             <!-- /.box -->
         </div>
+        <!-- /.box -->
+		<div class="col-xs-12">
+			<div class="box box-danger">
+			<div class="box-header with-border">
+				<h3 class="box-title">Jumlah Menguji</h3>
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<div class="col-xs-6">
+					<div class="col-xs-12"><b>Dosen Tidak Layak</b></div>
+					@foreach($dosenTidakLayaks as $dosenTidakLayak)
+						<div class="col-xs-6">
+							{{$dosenTidakLayak->user->name}} : <span class="total-menguji menguji-{{$dosenTidakLayak->id}}">{{$dosenTidakLayak->sekretaris->count()+$dosenTidakLayak->ketua->count()}}</span>
+						</div>
+					@endforeach
+				</div>
+				<div class="col-xs-6">
+					<div class="col-xs-12"><b>Dosen Layak</b></div>
+					@foreach($dosenLayaks as $dosenLayak)
+						<div class="col-xs-6">
+							{{$dosenLayak->user->name}} : <span class="total-menguji menguji-{{$dosenLayak->id}}">{{$dosenLayak->sekretaris->count()+$dosenLayak->ketua->count()}}</span>
+						</div>
+					@endforeach
+				</div>
+			</div>
+			<!-- /.box-body -->
+		</div>
     </div>
-    
 </section>
 <!-- /.content -->
 
 <script>
     $(function(){
+		cekJumlahMenguji();
         $('.sekretaris').on('click change', function(){
             var ini = $(this);
             var pilih = $(this).val();
@@ -150,12 +176,12 @@
                             //alert(i+" "+data.data[i]);
                             $('.menguji-'+i).html(data.data[i])
                         }
-                        ini.delay(5000).queue(function (next) { 
-                            $(this).css('background', 'none'); 
-                            next(); 
+                        ini.delay(5000).queue(function (next) {
+                            $(this).css('background', 'none');
+                            next();
                         });
                     }
-                    
+					cekJumlahMenguji();
                 },
             });
         });
@@ -206,15 +232,26 @@
                             //alert(i+" "+data.data[i]);
                             $('.menguji-'+i).html(data.data[i])
                         }
-                        ini.delay(5000).queue(function (next) { 
-                            $(this).css('background', 'none'); 
-                            next(); 
+                        ini.delay(5000).queue(function (next) {
+                            $(this).css('background', 'none');
+                            next();
                         });
                     }
-                    
+					cekJumlahMenguji();
                 },
             });
         });
+
+		function cekJumlahMenguji(){
+			$('.total-menguji').each(function(){
+				if($(this).html()==0){
+					$(this).css('background', 'red');
+				}
+				else{
+					$(this).css('background', 'none');
+				}
+			});
+		}
     });
 </script>
 @endsection
