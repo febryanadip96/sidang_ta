@@ -8,11 +8,16 @@ use App\Tempat;
 
 class MasterTempatController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('paj');
+    }
+	
     public function index(Request $request)
     {
     	$tempats = Tempat::all();
     	return view('user.paj.mastertempat.index', ['tempats' => $tempats]);
-    } 
+    }
 
     public function simpan(Request $request)
     {

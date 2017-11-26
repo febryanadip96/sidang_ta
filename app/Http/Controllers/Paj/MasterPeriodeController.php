@@ -14,6 +14,11 @@ use DateTime;
 
 class MasterPeriodeController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('paj');
+    }
+	
     public function index()
     {
     	$periodes = Periode::orderBy('id', 'DESC')->get();
@@ -45,7 +50,7 @@ class MasterPeriodeController extends Controller
 		    $day_num = $day->format("N"); /* 'N' number days 1 (mon) to 7 (sun) */
 		    if($day_num < 6) { /* weekday */
 		        $tanggal = $day->format("Y-m-d");
-		        for ($i=1; $i < 7; $i++) { 
+		        for ($i=1; $i < 7; $i++) {
 		        	$jadwal = new Jadwal();
 		        	$jadwal->tanggal = $tanggal;
 		        	$jadwal->waktu = $i;
@@ -53,7 +58,7 @@ class MasterPeriodeController extends Controller
 		        	$jadwal->disabled = 0;
 		        	$jadwal->save();
 		        }
-		    } 
+		    }
 		}
 
 		$jadwals = Jadwal::where('periode_id', $periode->id)->get();
@@ -65,7 +70,7 @@ class MasterPeriodeController extends Controller
 	    		$tempatJadwal->tempat_id = $tempat->id;
 	    		$tempatJadwal->jadwal_id = $jadwal->id;
 	    		$tempatJadwal->save();
-	    	}  
+	    	}
 		}
 
     	return back()->with('status', 'Data periode baru '.$request->nama.' telah disimpan.');

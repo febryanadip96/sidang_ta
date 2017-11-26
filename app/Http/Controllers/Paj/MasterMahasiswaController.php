@@ -9,11 +9,6 @@ use App\Mahasiswa;
 
 class MasterMahasiswaController extends Controller
 {
-	/**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('paj');
@@ -79,6 +74,12 @@ class MasterMahasiswaController extends Controller
         else{
             $mahasiswa->persyaratan_6 = false;
         }
+		if($request->status_lulus){
+			$mahasiswa->status_lulus = true;
+		}
+		else{
+			$mahasiswa->status_lulus = false;
+		}
         $mahasiswa->save();
         return back()->with('status', 'Persyaratan mahasiswa '.$mahasiswa->nama.'('.$mahasiswa->nrp.') telah diperbarui.');
     }

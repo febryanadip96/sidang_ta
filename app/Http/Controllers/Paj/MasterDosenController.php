@@ -9,6 +9,11 @@ use App\User;
 
 class MasterDosenController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('paj');
+    }
+	
     public function index(Request $request)
     {
     	$dosens = Dosen::all();
@@ -66,7 +71,7 @@ class MasterDosenController extends Controller
 	    		'kelayakan' => 'required|boolean',
 	    	]);
     	}
-    	
+
     	$dosen = Dosen::findOrFail($id);
     	$namaLama = $dosen->user->name;
     	$dosen->kelayakan = $request->kelayakan;

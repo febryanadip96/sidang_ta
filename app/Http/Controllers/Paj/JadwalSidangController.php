@@ -13,11 +13,6 @@ use App\JadwalSidang;
 
 class JadwalSidangController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('paj');
@@ -94,7 +89,7 @@ class JadwalSidangController extends Controller
             $jadwalSidang->tempat_jadwal_id = null;
             $jadwalSidang->save();
         }
-        
+
         if($pilihanSebelum!=0)
         {
             //mengubah jadwal kosong dosen yang sebelumnya dipakai menjadi tidak diambil
@@ -116,10 +111,10 @@ class JadwalSidangController extends Controller
                 $jadwalSidang->mahasiswa->ketua->jadwalKosong()->updateExistingPivot($jadwalSesudah, ['diambil' => true]);
             }
         }
-        
+
         return response()->json([
             'hasil' => true,
         ]);
-        
+
     }
 }

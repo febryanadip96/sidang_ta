@@ -38,6 +38,7 @@
                                 <th rowspan="2" style="vertical-align:middle">No Telp</th>
                                 <th rowspan="2" style="vertical-align:middle">Pembimbing 1</th>
                                 <th rowspan="2" style="vertical-align:middle">Pembimbing 2</th>
+                                <th rowspan="2" class="no-sort" style="vertical-align:middle">Lulus</th>
                                 <th colspan="6">Persyaratan</th>
                                 <th rowspan="2" class="no-sort" style="vertical-align:middle">Aksi</th>
                             </tr>
@@ -61,6 +62,7 @@
                                         <td>{{$mahasiswa->no_telp}}</td>
                                         <td>{{$mahasiswa->pembimbing1->user->name}}</td>
                                         <td>{{$mahasiswa->pembimbing2->user->name}}</td>
+										<td>@if($mahasiswa->status_lulus)<i class="fa fa-check-circle"></i>@else<i class="fa fa-circle-thin"></i>@endif</td>
                                         <td>@if($mahasiswa->persyaratan_1)<i class="fa fa-check-circle"></i>@else<i class="fa fa-circle-thin"></i>@endif</td>
                                         <td>@if($mahasiswa->persyaratan_2)<i class="fa fa-check-circle"></i>@else<i class="fa fa-circle-thin"></i>@endif</td>
                                         <td>@if($mahasiswa->persyaratan_3)<i class="fa fa-check-circle"></i>@else<i class="fa fa-circle-thin"></i>@endif</td>
@@ -113,6 +115,10 @@
                         <div class="checkbox">
                             <label><input type="checkbox" id="persyaratan_6" name="persyaratan_6" value="1">Persyaratan 6</label>
                         </div>
+						<br>
+						<div class="checkbox">
+                            <label><input type="checkbox" id="lulus" name="status_lulus" value="1">Lulus</label>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -142,6 +148,12 @@
                 $('#nrpEdit').html(data.nrp);
                 $('#namaEdit').html(data.nama);
                 $('input[type=checkbox]').attr('checked', true);
+				if(data.status_lulus){
+					$('#lulus').attr('checked', true);
+				}
+				else{
+					$('#lulus').attr('checked', false);
+				}
                 $('#modal-edit').modal('show',{backdrop: 'true'});
             });
         });
