@@ -142,7 +142,7 @@ class PengujiSidangController extends Controller
             $jumlahMengujiKetuaSebelum += $ketuaSebelum->ketua->count();
         }
         else{
-            $jumlahMengujiSekretarisSebelum = 0;
+            $jumlahMengujiKetuaSebelum = 0;
         }
         if($ketuaSesudahId!=0){
             $ketuaSesudah = Dosen::find($ketuaSesudahId);

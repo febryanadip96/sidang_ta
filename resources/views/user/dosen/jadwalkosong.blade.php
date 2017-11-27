@@ -8,10 +8,13 @@
 	  	@include('includes.common.errors')
 	  	<div class="col-xs-12">
 	  		<div class="box box-danger">
-				<div class="box-header with-border">
+				<div class="box-header">
 					<div class="text-center">
 						<h3 class="box-title">Jadwal Kosong Periode {{$periode->nama}}</h3><br>
-						<small>Beri arsiran pada jadwal yang bisa menguji</small>
+						<small>Klik pada jadwal yang bisa menguji</small>
+					</div>
+					<div class="pull-left">
+						<span>Keterangan: <span style="background:black;">&nbsp;&nbsp;&nbsp;</span> Kosong | <span style="background:green;">&nbsp;&nbsp;&nbsp;</span> Diambil | <span style="background:red;">&nbsp;&nbsp;&nbsp;</span> Disable</span>
 					</div>
 				</div>
 				<form class="form-horizontal" method="POST" action="{{ url('dosen/jadwalkosong/'.Auth::user()->dosen->id) }}">
@@ -28,7 +31,9 @@
 	                            <th>07.00-08.30</th>
 	                            @foreach($tanggals as $tanggal)
 	                                <td>
-	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','07.00-08.30')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','07.00-08.30')->where('tanggal',$tanggal->tanggal)->first()->disabled}}" value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','07.00-08.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
+	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','07.00-08.30')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','07.00-08.30')->where('tanggal',$tanggal->tanggal)->first()->disabled}}"
+										diambil="{{(Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','07.00-08.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null && Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','07.00-08.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()->pivot->diambil)?1:0}}"
+										value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','07.00-08.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
 	                                </td>
 	                            @endforeach
 	                        </tr>
@@ -36,7 +41,9 @@
 	                            <th>08.30-10.00</th>
 	                            @foreach($tanggals as $tanggal)
 	                                <td>
-	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','08.30-10.00')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','08.30-10.00')->where('tanggal',$tanggal->tanggal)->first()->disabled}}" value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','08.30-10.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
+	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','08.30-10.00')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','08.30-10.00')->where('tanggal',$tanggal->tanggal)->first()->disabled}}"
+										diambil="{{(Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','08.30-10.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null && Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','08.30-10.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()->pivot->diambil)?1:0}}"
+										value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','08.30-10.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
 	                                </td>
 	                            @endforeach
 	                        </tr>
@@ -44,7 +51,9 @@
 	                            <th>10.00-11.30</th>
 	                            @foreach($tanggals as $tanggal)
 	                                <td>
-	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','10.00-11.30')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','10.00-11.30')->where('tanggal',$tanggal->tanggal)->first()->disabled}}" value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','10.00-11.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
+	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','10.00-11.30')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','10.00-11.30')->where('tanggal',$tanggal->tanggal)->first()->disabled}}"
+										diambil="{{(Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','10.00-11.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null && Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','10.00-11.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()->pivot->diambil)?1:0}}"
+										value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','10.00-11.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
 	                                </td>
 	                            @endforeach
 	                        </tr>
@@ -52,7 +61,9 @@
 	                            <th>11.30-13.00</th>
 	                            @foreach($tanggals as $tanggal)
 	                                <td>
-	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','11.30-13.00')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','11.30-13.00')->where('tanggal',$tanggal->tanggal)->first()->disabled}}" value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','11.30-13.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
+	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','11.30-13.00')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','11.30-13.00')->where('tanggal',$tanggal->tanggal)->first()->disabled}}"
+										diambil="{{(Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','11.30-13.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null && Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','11.30-13.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()->pivot->diambil)?1:0}}"
+										value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','11.30-13.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
 	                                </td>
 	                            @endforeach
 	                        </tr>
@@ -60,7 +71,9 @@
 	                            <th>13.00-14.30</th>
 	                            @foreach($tanggals as $tanggal)
 	                                <td>
-	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','13.00-14.30')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','13.00-14.30')->where('tanggal',$tanggal->tanggal)->first()->disabled}}" value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','13.00-14.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
+	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','13.00-14.30')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','13.00-14.30')->where('tanggal',$tanggal->tanggal)->first()->disabled}}"
+										diambil="{{(Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','13.00-14.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null && Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','13.00-14.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()->pivot->diambil)?1:0}}"
+										value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','13.00-14.30')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
 	                                </td>
 	                            @endforeach
 	                        </tr>
@@ -68,7 +81,9 @@
 	                            <th>14.30-16.00</th>
 	                            @foreach($tanggals as $tanggal)
 	                                <td>
-	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','14.30-16.00')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','14.30-16.00')->where('tanggal',$tanggal->tanggal)->first()->disabled}}" value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','14.30-16.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
+	                                    <input type="hidden" name="jadwal[{{$jadwals->where('waktu','14.30-16.00')->where('tanggal',$tanggal->tanggal)->first()->id}}]" tutup="{{$jadwals->where('waktu','14.30-16.00')->where('tanggal',$tanggal->tanggal)->first()->disabled}}"
+										diambil="{{(Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','14.30-16.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null && Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','14.30-16.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()->pivot->diambil)?1:0}}"
+										value="{{Auth::user()->dosen->jadwalKosong->where('id',$jadwals->where('waktu','14.30-16.00')->where('tanggal',$tanggal->tanggal)->first()->id)->first()!==null?1:0}}">
 	                                </td>
 	                            @endforeach
 	                        </tr>
@@ -92,11 +107,15 @@
         $('input[type=hidden]').each(function(){
             var tutup = $(this).attr('tutup');
             var cek = $(this).val();
+            var diambil = $(this).attr('diambil');
             if(tutup == 1){
                 $(this).parent().css("background", "red");
             }
             else if(cek == 1){
                 $(this).parent().css("background", "black");
+				if(diambil == 1){
+                    $(this).parent().css("background", "green");
+                }
             }
             else{
                 $(this).parent().css("background", "none");
@@ -104,7 +123,8 @@
         });
         $('td').on('click', function(){
         	var tutup = $(this).find('input[type=hidden]').attr('tutup');
-            if(tutup != 1){
+			var diambil = $(this).find('input[type=hidden]').attr('diambil');
+            if(tutup != 1 && diambil !=1){
                 var cek = $(this).find('input[type=hidden]').val();
 	            if(cek == 0){
 	                $(this).css("background", "black");
@@ -119,7 +139,8 @@
         $('#hapus').on('click', function(){
         	$('td').each(function(){
         		var tutup = $(this).find('input[type=hidden]').attr('tutup');
-	        	if(tutup != 1){
+				var diambil = $(this).find('input[type=hidden]').attr('diambil');
+	        	if(tutup != 1 && diambil != 1){
 		            $(this).css("background", "none");
 		            $(this).find('input[type=hidden]').val(0);
 		        }
