@@ -12,6 +12,9 @@
                     <div class="text-center">
                         <h4>Jadwal Kosong Dosen Pembimbing dan Penguji {{$mahasiswa->nama}} ({{$mahasiswa->nrp}})</h4>
                     </div>
+					<div class="pull-left">
+						<span>Keterangan: <span style="background:black;">&nbsp;&nbsp;&nbsp;</span> Kosong | <span style="background:green;">&nbsp;&nbsp;&nbsp;</span> Diambil | <span style="background:red;">&nbsp;&nbsp;&nbsp;</span> Disable</span>
+					</div>
                 </div>
                 <div class="box-body">
                     <div class="row">
